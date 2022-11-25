@@ -1,16 +1,5 @@
 import React from 'react';
 
-<<<<<<< HEAD
-function SearchRecipe(props) {
-    return (
-        <div className="column middle">
-            <h2>Test search</h2>
-
-        </div>
-    );
-}
-=======
-
 const SearchRecipe = () => {
     return (
     <div className='column middle'>
@@ -27,6 +16,6 @@ const SearchRecipe = () => {
     </div>    
     );
 };
->>>>>>> 2e600790a37fd476a44ce0351ac108662f92342a
+
 
 export default SearchRecipe;
