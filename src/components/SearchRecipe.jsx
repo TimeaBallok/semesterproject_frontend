@@ -10,9 +10,6 @@ const SearchRecipe = () => {
         <div className='button'>
         <button type="submit"><i class="fa fa-search"></i></button>
         </div>
-
-        
-
     </div>    
     );
 };
