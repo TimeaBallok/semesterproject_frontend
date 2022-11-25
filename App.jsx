@@ -9,6 +9,7 @@ import {Alert} from "react-bootstrap";
 import facade from "./src/apiFacade.js";
 import Footer from "./src/components/Footer.jsx";
 import Side from "./src/components/Side.jsx";
+import SearchRecipe from './src/components/SearchRecipe.jsx';
 
 function App() {
     //usestates her
@@ -25,7 +26,7 @@ function App() {
 
             <Routes>
                 <Route path="/" element={<WelcomePage/>}/>
-                <Route path="about" element={<About/>}/>
+                <Route path="about" element={<SearchRecipe/>}/>
                 <Route path="login" element={<LogIn loggedIn={loggedIn} setLoggedIn={setLoggedIn} setErrorMessage={setErrorMessage}/>}/>
                 <Route path="joke" element={facade.hasUserAccess('user', loggedIn) ? <GetJoke setErrorMessage={setErrorMessage} /> : <h4>Get back to work you lazy dog!</h4>}/>
                 <Route
