@@ -9,6 +9,10 @@ import {Alert} from "react-bootstrap";
 import facade from "./src/apiFacade.js";
 import Footer from "./src/components/Footer.jsx";
 import Side from "./src/components/Side.jsx";
+import SearchRecipe from "./src/components/SearchRecipe.jsx";
+import Bookmark from "./src/components/Bookmark.jsx";
+import MealPlan from "./src/components/MealPlan.jsx";
+import BMI from "./src/components/BMI";
 
 function App() {
     //usestates her
@@ -25,7 +29,10 @@ function App() {
 
             <Routes>
                 <Route path="/" element={<WelcomePage/>}/>
-                <Route path="about" element={<About/>}/>
+                <Route path="search" element={<SearchRecipe/>}/>
+                <Route path="bookmark" element={<Bookmark/>}/>
+                <Route path="mealplan" element={<MealPlan/>}/>
+                <Route path="bmi" element={<BMI/>}/>
                 <Route path="login" element={<LogIn loggedIn={loggedIn} setLoggedIn={setLoggedIn} setErrorMessage={setErrorMessage}/>}/>
                 <Route path="joke" element={facade.hasUserAccess('user', loggedIn) ? <GetJoke setErrorMessage={setErrorMessage} /> : <h4>Get back to work you lazy dog!</h4>}/>
                 <Route

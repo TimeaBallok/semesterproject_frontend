@@ -1,12 +1,11 @@
 import React from 'react';
 
-function SearchRecipe(props) {
+function Bmi(props) {
     return (
         <div className="column middle">
-            <h2>Test search</h2>
-
+            <h2>Test BMI</h2>
         </div>
     );
 }
 
-export default SearchRecipe;
+export default Bmi;

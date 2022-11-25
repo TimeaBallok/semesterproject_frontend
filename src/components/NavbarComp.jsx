@@ -1,4 +1,4 @@
-import {NavLink} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import nutrition from "/public/nutrition.png";
 
 function NavbarComp() {
@@ -7,12 +7,12 @@ function NavbarComp() {
 
   return (
       <header className="header">
+          <Link to="/">
           <img className="logo" src={nutrition}/>
+          </Link>
         <nav>
-          <NavLink to={"/"} >Food & Nutrition</NavLink>
-
             <div style={{textAlign: "right", paddingRight: 15}}>
-            <NavLink to={"/"} >Login / Sign Up</NavLink>
+            <NavLink to={"login"} >Login / Sign Up</NavLink>
             </div>
         </nav>
       </header>

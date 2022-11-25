@@ -1,12 +1,12 @@
 import React from 'react';
 
-function SearchRecipe(props) {
+function Bookmark(props) {
     return (
         <div className="column middle">
-            <h2>Test search</h2>
+            <h2>Test bookmark</h2>
 
         </div>
     );
 }
 
-export default SearchRecipe;
+export default Bookmark;

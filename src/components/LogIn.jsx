@@ -18,7 +18,7 @@ function LogIn({loggedIn, setLoggedIn, setErrorMessage}) {
     }
 
     return (
-        <div>
+        <div className="column middle" style={{paddingLeft: 40}}>
             {!loggedIn ? (<LoginForm login={login} loginCredentials={loginCredentials} setLoginCredentials={setLoginCredentials}/>) :
                 (<div>
                     <UserPage />
