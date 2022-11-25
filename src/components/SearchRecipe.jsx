@@ -4,7 +4,7 @@ const SearchRecipe = () => {
     return (
     <div className='column middle'>
         <div className='searchbar'>
-        <p>Search for recipe</p>    
+        <p>Search for recipes</p>    
         <input type="text" name="search" placeholder="Search recipes..."></input>
         </div>
         <div className='button'>
