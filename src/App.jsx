@@ -13,12 +13,23 @@ import SearchRecipe from "./components/SearchRecipe.jsx";
 import Bookmark from "./components/Bookmark.jsx";
 import MealPlan from "./components/MealPlan.jsx";
 import BMI from "./components/BMI.jsx";
+import apiFacade from "./apiFacade.js";
 
 function App() {
     //usestates her
     const [loggedIn, setLoggedIn] = useState(false)
     const [errorMessage, setErrorMessage] = useState('It just works! ~Todd Howard');
+    const [searchInput, setSearchInput] = useState("")
 
+    const basicComplexSearchClick = (e) => {
+        console.log(searchInput);
+        apiFacade.fetchData("recipe/search/" + searchInput, (data) => console.log(data), "")
+    }
+
+    const changeHandler = (e) => {
+        setSearchInput(e.target.value);
+        console.log(e.target.value);
+    }
 
     return (
         <BrowserRouter>
@@ -29,7 +40,7 @@ function App() {
 
             <Routes>
                 <Route path="/" element={<WelcomePage/>}/>
-                <Route path="search" element={<SearchRecipe/>}/>
+                <Route path="search" element={<SearchRecipe onClick={basicComplexSearchClick} changeHandler={changeHandler}/>}/>
                 <Route path="bookmark" element={<Bookmark/>}/>
                 <Route path="mealplan" element={<MealPlan/>}/>
                 <Route path="bmi" element={<BMI/>}/>
