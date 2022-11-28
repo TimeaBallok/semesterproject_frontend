@@ -1,18 +1,18 @@
 import React, {useState} from 'react';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import Navbarcomp from "./src/components/NavbarComp.jsx";
-import WelcomePage from "./src/components/WelcomePage.jsx";
-import About from "./src/components/About.jsx";
-import LogIn from "./src/components/LogIn.jsx";
-import GetJoke from "./src/components/GetJoke.jsx";
+import Navbarcomp from "./components/NavbarComp.jsx";
+import WelcomePage from "./components/WelcomePage.jsx";
+import About from "./components/About.jsx";
+import LogIn from "./components/LogIn.jsx";
+import GetJoke from "./components/GetJoke.jsx";
 import {Alert} from "react-bootstrap";
-import facade from "./src/apiFacade.js";
-import Footer from "./src/components/Footer.jsx";
-import Side from "./src/components/Side.jsx";
-import SearchRecipe from "./src/components/SearchRecipe.jsx";
-import Bookmark from "./src/components/Bookmark.jsx";
-import MealPlan from "./src/components/MealPlan.jsx";
-import BMI from "./src/components/BMI";
+import facade from "./apiFacade.js";
+import Footer from "./components/Footer.jsx";
+import Side from "./components/Side.jsx";
+import SearchRecipe from "./components/SearchRecipe.jsx";
+import Bookmark from "./components/Bookmark.jsx";
+import MealPlan from "./components/MealPlan.jsx";
+import BMI from "./components/BMI.jsx";
 
 function App() {
     //usestates her
