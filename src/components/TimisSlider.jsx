@@ -1,11 +1,11 @@
 import React from 'react';
 import '../style/App.css'
 
-function TimisSlider(props) {
+function TimisSlider({typeName}) {
     return (
         <div>
-            <input type="number" placeholder={"Max amount of calories"} name={"calNumberMax"}/>
-            <input type="number" placeholder={"Min amount of calories"} name={"calNumberMin"}/>
+            <input type="number" placeholder={"min"} name={""}/>
+            <input type="number" placeholder={"max"} name={"calNumberMin"}/>
         </div>
     );
 }
