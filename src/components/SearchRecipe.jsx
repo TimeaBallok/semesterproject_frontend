@@ -3,7 +3,7 @@ import {Outlet} from "react-router-dom";
 import apiFacade from "../apiFacade.js";
 
 function SearchRecipe({dataFromServer, setDataFromServer}) {
-    const [searchInput, setSearchInput] = useState("")
+    const [searchInput, setSearchInput] = useState([{}])
 
     const basicComplexSearchClick = (e) => {
         console.log(searchInput);

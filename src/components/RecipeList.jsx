@@ -9,7 +9,7 @@ function RecipeList({dataFromServer}) {
 
     return (
         <div className="container">
-            {hackTheSystem.map(recipe => (
+            {hackTheSystem.map((recipe) => (
                 <div key={recipe.id} className="row">
                     <div className="col">
                         <img src={recipe.image}/>
@@ -18,7 +18,7 @@ function RecipeList({dataFromServer}) {
                         <p>{recipe.title}</p>
                     </div>
                     <div className="col">
-                        3 out of 5 stars... kekw
+                        <p> 3 out of 5 stars... kekw</p>
                     </div>
                 </div>
             ))}
