@@ -21,9 +21,9 @@ function LoginForm({login, loginCredentials, setLoginCredentials}) {
             >
                 <h2>Login</h2>
                 <br/>
-                <input placeholder="User Name" id="username" />
+                <input className={"inputLogin"} placeholder="User Name" id="username" />
                 <br/>
-                <input placeholder="Password" id="password" />
+                <input className={"inputLogin"} type={"password"} placeholder="Password" id="password" />
                 <br/>
                 <button onClick={performLogin}>Login</button>
             </form>

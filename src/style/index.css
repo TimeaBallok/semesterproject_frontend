@@ -18,7 +18,6 @@ body {
 .column {
   float: left;
   padding: 10px;
-  height: 500px; /* Should be removed. Only for demonstration */
 }
 
 /* Left and right column */
@@ -98,7 +97,7 @@ label {
   margin-bottom: 1.5em;
 }
 
-input {
+.inputLogin {
   outline: none;
   font-size: 1em;
   margin-top: 0.35em;

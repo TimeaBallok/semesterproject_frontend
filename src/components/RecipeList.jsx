@@ -3,19 +3,6 @@ import facade from "../apiFacade.js";
 import {useOutletContext} from "react-router-dom";
 
 function RecipeList({dataFromServer}) {
-    // dataFromServer = useOutletContext()
-
-    // let hackTheSystem = [
-    //     {}
-    // ];
-    //
-    // useEffect( () => {
-    //     hackTheSystem = dataFromServer.results
-    //         console.log("Hack the system updated:");
-    //         console.log(hackTheSystem)
-    //     },
-    //     [dataFromServer]
-    // )
 
     return (
         <div className="container">
