@@ -14,22 +14,13 @@ import Bookmark from "./components/Bookmark.jsx";
 import MealPlan from "./components/MealPlan.jsx";
 import BMI from "./components/BMI.jsx";
 import apiFacade from "./apiFacade.js";
+import RecipeList from "./components/RecipeList.jsx";
 
 function App() {
     //usestates her
     const [loggedIn, setLoggedIn] = useState(false)
     const [errorMessage, setErrorMessage] = useState('It just works! ~Todd Howard');
-    const [searchInput, setSearchInput] = useState("")
-
-    const basicComplexSearchClick = (e) => {
-        console.log(searchInput);
-        apiFacade.fetchData("recipe/search/" + searchInput, (data) => console.log(data), "")
-    }
-
-    const changeHandler = (e) => {
-        setSearchInput(e.target.value);
-        console.log(e.target.value);
-    }
+    const [dataFromServer, setDataFromServer] = useState({})
 
     return (
         <BrowserRouter>
@@ -40,7 +31,9 @@ function App() {
 
             <Routes>
                 <Route path="/" element={<WelcomePage/>}/>
-                <Route path="search" element={<SearchRecipe onClick={basicComplexSearchClick} changeHandler={changeHandler}/>}/>
+                <Route path="search" element={<SearchRecipe dataFromServer={dataFromServer} setDataFromServer={setDataFromServer}/>}>
+                    <Route index element={<RecipeList dataFromServer={dataFromServer}/>}/>
+                </Route>
                 <Route path="bookmark" element={<Bookmark/>}/>
                 <Route path="mealplan" element={<MealPlan/>}/>
                 <Route path="bmi" element={<BMI/>}/>

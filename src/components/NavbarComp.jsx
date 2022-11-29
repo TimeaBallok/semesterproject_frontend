@@ -1,5 +1,5 @@
 import {Link, NavLink} from "react-router-dom";
-import nutrition from "/public/nutrition.png";
+import nutrition from "/src/images/nutrition.png";
 
 function NavbarComp() {
 
