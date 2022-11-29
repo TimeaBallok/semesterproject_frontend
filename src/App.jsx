@@ -20,7 +20,7 @@ function App() {
     //usestates her
     const [loggedIn, setLoggedIn] = useState(false)
     const [errorMessage, setErrorMessage] = useState('It just works! ~Todd Howard');
-    const [dataFromServer, setDataFromServer] = useState({})
+    const [dataFromServer, setDataFromServer] = useState({"results": []})
 
     return (
         <BrowserRouter>

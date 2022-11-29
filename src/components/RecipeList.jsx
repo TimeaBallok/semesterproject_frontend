@@ -1,15 +1,25 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import facade from "../apiFacade.js";
 import {useOutletContext} from "react-router-dom";
 
 function RecipeList({dataFromServer}) {
     // dataFromServer = useOutletContext()
 
-    const hackTheSystem = dataFromServer.results;
+    // let hackTheSystem = [
+    //     {}
+    // ];
+    //
+    // useEffect( () => {
+    //     hackTheSystem = dataFromServer.results
+    //         console.log("Hack the system updated:");
+    //         console.log(hackTheSystem)
+    //     },
+    //     [dataFromServer]
+    // )
 
     return (
         <div className="container">
-            {hackTheSystem.map((recipe) => (
+            {dataFromServer.results.map((recipe) => (
                 <div key={recipe.id} className="row">
                     <div className="col">
                         <img src={recipe.image}/>
@@ -18,7 +28,7 @@ function RecipeList({dataFromServer}) {
                         <p>{recipe.title}</p>
                     </div>
                     <div className="col">
-                        <p> 3 out of 5 stars... kekw</p>
+                        3 out of 5 stars... kekw
                     </div>
                 </div>
             ))}
