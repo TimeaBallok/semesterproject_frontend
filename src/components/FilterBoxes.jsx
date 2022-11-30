@@ -9,7 +9,11 @@ const myMap = new Map([
 ]);
 function FilterBoxes(props) {
 
+    const [toggle, setToggle] = useState(false)
+
+
     const onCheck = (e) => {
+        setToggle(!toggle)
         console.log(myMap);
         myMap.set(e.target.id.toString().substring(6), e.target.checked)
     }
