@@ -15,6 +15,7 @@ import MealPlan from "./components/MealPlan.jsx";
 import BMI from "./components/BMI.jsx";
 import apiFacade from "./apiFacade.js";
 import RecipeList from "./components/RecipeList.jsx";
+import SingleRecipe from "./components/SingleRecipe.jsx";
 
 function App() {
     //usestates her
@@ -34,6 +35,7 @@ function App() {
                 <Route path="search" element={<SearchRecipe dataFromServer={dataFromServer} setDataFromServer={setDataFromServer}/>}>
                     <Route index element={<RecipeList dataFromServer={dataFromServer}/>}/>
                 </Route>
+                <Route path="singleRecipe" element={<SingleRecipe/>}/>
                 <Route path="bookmark" element={<Bookmark/>}/>
                 <Route path="mealplan" element={<MealPlan/>}/>
                 <Route path="bmi" element={<BMI/>}/>
