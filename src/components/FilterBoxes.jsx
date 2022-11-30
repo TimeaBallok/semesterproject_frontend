@@ -1,21 +1,15 @@
 import React, {useEffect, useRef, useMemo, useState} from 'react';
 import {Outlet} from "react-router-dom";
-import TimisSlider from "./TimisSlider.jsx";
-const myMap = new Map([
-    [ "Calories", false ],
-    [ "Sugar", false ],
-    ["Cholesterol", false],
-    ["Fat", false]
-]);
-function FilterBoxes(props) {
+import InputMinMax from "./InputMinMax.jsx";
+
+function FilterBoxes({filterTypes}) {
 
     const [toggle, setToggle] = useState(false)
 
-
     const onCheck = (e) => {
         setToggle(!toggle)
-        console.log(myMap);
-        myMap.set(e.target.id.toString().substring(6), e.target.checked)
+        filterTypes.set(e.target.id.toString().substring(6), e.target.checked)
+        console.log(filterTypes);
     }
 
 
@@ -23,17 +17,17 @@ function FilterBoxes(props) {
         <div>
             <br/>
             <div>
-                {Array.from(myMap).map(([typeName, mybBool], index) => (
-                        <>
+                {Array.from(filterTypes).map(([typeName, {mybBool}], index) => (
+                        <div key={typeName}>
                             <label htmlFor={"filter"+typeName}>{typeName}</label>
                             <input onChange={onCheck} id={"filter" + typeName} type="checkbox"
                                    name={"filter" + typeName}/>
-                            {mybBool ? <TimisSlider/> : ""}
-                        </>
+                            {mybBool ? <InputMinMax typeName={typeName}/> : ""}
+                        </div>
                     )
                 )}
 
-                <Outlet/>
+                {/*<Outlet/>*/}
 
                 {/*Check if boxed is checked, then render min/max. below is simple prototype*/}
                 {/*<input type="number" placeholder={"Max amount of calories"} name={"calNumberMax"}/>*/}
