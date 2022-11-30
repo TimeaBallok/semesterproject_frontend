@@ -1,13 +1,30 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import facade from "../apiFacade.js";
-import {useOutletContext} from "react-router-dom";
+import {Link, useOutletContext} from "react-router-dom";
+import apiFacade from "../apiFacade.js";
 
 function RecipeList({dataFromServer}) {
+
+    const [singleRecipe, setSingleRecipe] = useState("")
+
+    // const [toggle, setToggle] = useState(false);
+    //
+    // useEffect(() => {
+    //
+    // }, [toggle])
+
+    const fetchSingleRecipe = () => {
+        apiFacade.fetchData("recipe/singleRecipe/324694", (data) => {
+            console.log(data);
+            setSingleRecipe(data.ex)
+            console.log(singleRecipe.id);
+        }, "")
+    }
 
     return (
         <div className="container">
             {dataFromServer.results.map((recipe) => (
-                <div key={recipe.id} className="row">
+                <div onClick={fetchSingleRecipe} singleRecipe={singleRecipe} id={recipe.id} key={recipe.id} className="row">
                     <div className="col">
                         <img src={recipe.image}/>
                     </div>
@@ -20,6 +37,7 @@ function RecipeList({dataFromServer}) {
                 </div>
             ))}
         </div>
+
     );
 }
 

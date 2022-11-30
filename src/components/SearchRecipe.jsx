@@ -31,7 +31,7 @@ function SearchRecipe({dataFromServer, setDataFromServer}) {
                     <button type="button" onClick={basicComplexSearchClick}><i className="fa fa-search"></i></button>
                 </div>
                 < FilterBoxes />
-                <Outlet context={dataFromServer}/>
+                {/*<Outlet context={dataFromServer}/>*/}
             </div>
         </>
     );
