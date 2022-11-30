@@ -2,14 +2,26 @@ import React, {useEffect, useRef, useMemo, useState} from 'react';
 import {Outlet} from "react-router-dom";
 import InputMinMax from "./InputMinMax.jsx";
 
-function FilterBoxes({filterTypes}) {
+function FilterBoxes({filters}) {
 
     const [toggle, setToggle] = useState(false)
 
     const onCheck = (e) => {
         setToggle(!toggle)
-        filterTypes.set(e.target.id.toString().substring(6), e.target.checked)
-        console.log(filterTypes);
+        const id = e.target.id.toString().substring(6);
+
+        const tempObj = filters.get(id)
+        tempObj.boxValue = e.target.checked;
+        filters.set(id, tempObj)
+    }
+
+    const onChangeValue = (e) => {
+        const id = e.target.id.substring(3);
+        const inputTarget = e.target.id.substring(0,3);
+
+        const tempObj = filters.get(id)
+        inputTarget === "min"  ? tempObj.min = e.target.value : tempObj.max = e.target.value;
+        filters.set(id, tempObj)
     }
 
 
@@ -17,12 +29,12 @@ function FilterBoxes({filterTypes}) {
         <div>
             <br/>
             <div>
-                {Array.from(filterTypes).map(([typeName, {mybBool}], index) => (
+                {Array.from(filters).map(([typeName, values], index) => (
                         <div key={typeName}>
                             <label htmlFor={"filter"+typeName}>{typeName}</label>
                             <input onChange={onCheck} id={"filter" + typeName} type="checkbox"
                                    name={"filter" + typeName}/>
-                            {mybBool ? <InputMinMax typeName={typeName}/> : ""}
+                            {values.boxValue ? <InputMinMax typeName={typeName} onChangeValue={onChangeValue}/> : ""}
                         </div>
                     )
                 )}
