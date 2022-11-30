@@ -1,52 +1,31 @@
 import React, {useEffect, useRef, useMemo, useState} from 'react';
 import {Outlet} from "react-router-dom";
 import TimisSlider from "./TimisSlider.jsx";
-
+const myMap = new Map([
+    [ "Calories", false ],
+    [ "Sugar", false ],
+    ["Cholesterol", false],
+    ["Fat", false]
+]);
 function FilterBoxes(props) {
 
-    const [toggle, setToggle] = useState(false)
-    const [checkBox, setCheckBox] = useState([false, false, false, false])
-
-    const checkBoxFilterType = ["Calories", "Sugar", "Cholesterol", "Fat"]
-
-    const inputRefs = useMemo(() => checkBoxFilterType.map(i=> React.createRef()), []);
-
-    const ref = useRef(null);
-
-    useEffect(() => {
-        // 👇️ use a ref (best)
-        // const el2 = ref.current;
-        // console.log(el2);
-
-        // 👇️ use document.querySelector()
-        // should only be used when you can't set a ref prop on the element
-        // (you don't have access to the element)
-        checkBoxFilterType.map( (typeName, index) => {
-            const el2 = inputRefs[index].current.checked
-            // const el = document.querySelector("#filter" + typeName).checked
-
-            console.log(el2)
-        })
-    }, [toggle]);
-
-    const onCheck = () => {
-        setToggle(!toggle)
-
-        setCheckBox(...[], !checkBox)
+    const onCheck = (e) => {
+        console.log(myMap);
+        myMap.set(e.target.id.toString().substring(6), e.target.checked)
     }
 
 
     return (
         <div>
             <br/>
-            <div >
-                {checkBoxFilterType.map((typeName, index) => (
-                    <>
-                        <label htmlFor="filter">{typeName}</label>
-                            <input onChange={onCheck} ref={inputRefs[index]} id={"filter" + typeName} type="checkbox" name={"filter" + typeName}/>
-                        {/*{document.querySelector("#filter" + typeName).checked ? <TimisSlider /> : ""}*/}
-                        {checkBox ? <TimisSlider /> : ""}
-                    </>
+            <div>
+                {Array.from(myMap).map(([typeName, mybBool], index) => (
+                        <>
+                            <label htmlFor={"filter"+typeName}>{typeName}</label>
+                            <input onChange={onCheck} id={"filter" + typeName} type="checkbox"
+                                   name={"filter" + typeName}/>
+                            {mybBool ? <TimisSlider/> : ""}
+                        </>
                     )
                 )}
 
