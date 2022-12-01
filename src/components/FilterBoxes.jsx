@@ -20,7 +20,9 @@ function FilterBoxes({filters}) {
         const inputTarget = e.target.id.substring(0,3);
 
         const tempObj = filters.get(id)
+        console.log(tempObj);
         inputTarget === "min"  ? tempObj.min = e.target.value : tempObj.max = e.target.value;
+        console.log(tempObj);
         filters.set(id, tempObj)
     }
 
