@@ -25,20 +25,16 @@ function SearchRecipe({dataFromServer, setDataFromServer}) {
     const [searchInput, setSearchInput] = useState([{}])
 
     const basicComplexSearchClick = (e) => {
-        console.log(searchInput);
+        console.log("query= "+searchInput);
         //arr.map(function(val, index){
         //             return {key:index, value:val*val};
         //         })
         const selectedFilters = Array.from(filters).map(([key, values], index) => {
             if (values.boxValue)
-            return "&"+key+"min";
-        })
-        // const selectedFilters = "";
-        // filters.forEach((key, values) => {
-        //
-        // })
-        apiFacade.fetchData("recipe/search/" + searchInput, (data) => {
-        // apiFacade.fetchData("recipe/search/" + searchInput+"filers_go_here", (data) => {
+                return "&min"+key+"="+values.min+"&max"+key+"="+values.max;
+        }).join("")
+        console.log("selectedFilters: "+selectedFilters)
+        apiFacade.fetchData("recipe/search/" + searchInput+selectedFilters, (data) => {
             console.log(data);
             setDataFromServer(data)
             console.log(data.results[0]);
