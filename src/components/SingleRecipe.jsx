@@ -12,6 +12,7 @@ function SingleRecipe({singleRecipe}) {
     //         console.log(ing.nameClean)
     //     })
     // }
+
     return (
         <div className='column middle'>
             {/*<button onClick={click1}>click</button>*/}
@@ -20,6 +21,9 @@ function SingleRecipe({singleRecipe}) {
             <p>Servings: {singleRecipe.servings}</p>
             <p>Instructions: {singleRecipe.instructions}</p>
             <img src={singleRecipe.image}/>
+            {singleRecipe.extendedIngredients.map(ing =>
+            <p>{ing.nameClean}</p>
+            )}
 
         </div>
     );

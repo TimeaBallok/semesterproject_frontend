@@ -22,7 +22,13 @@ function App() {
     const [loggedIn, setLoggedIn] = useState(false)
     const [errorMessage, setErrorMessage] = useState('It just works! ~Todd Howard');
     const [dataFromServer, setDataFromServer] = useState({"results": []})
-    const [singleRecipe, setSingleRecipe] = useState({})
+    const [singleRecipe, setSingleRecipe] = useState({"extendedIngredients": [
+        {
+            "id": 18371,
+            "nameClean": "low sodium baking powder",
+            "amount": 1.0,
+            "unit": "teaspoon"
+        }]})
 
     const fetchSingleRecipe = (e) => {
         console.log(e.currentTarget.id);
