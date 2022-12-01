@@ -22,6 +22,17 @@ function App() {
     const [loggedIn, setLoggedIn] = useState(false)
     const [errorMessage, setErrorMessage] = useState('It just works! ~Todd Howard');
     const [dataFromServer, setDataFromServer] = useState({"results": []})
+    const [singleRecipe, setSingleRecipe] = useState({})
+
+    const fetchSingleRecipe = (e) => {
+        console.log(e.currentTarget.id);
+        apiFacade.fetchData("recipe/singleRecipe/" + e.currentTarget.id, (data) => {
+            console.log(data);
+            setSingleRecipe(data)
+            console.log(singleRecipe.title);
+        }, "")
+    }
+
 
     return (
         <BrowserRouter>
@@ -33,9 +44,9 @@ function App() {
             <Routes>
                 <Route path="/" element={<WelcomePage/>}/>
                 <Route path="search" element={<SearchRecipe dataFromServer={dataFromServer} setDataFromServer={setDataFromServer}/>}>
-                    <Route index element={<RecipeList dataFromServer={dataFromServer}/>}/>
+                    <Route index element={<RecipeList fetchSingleRecipe={fetchSingleRecipe} dataFromServer={dataFromServer}/>}/>
                 </Route>
-                <Route path="singleRecipe" element={<SingleRecipe/>}/>
+                <Route path="singleRecipe" element={<SingleRecipe singleRecipe={singleRecipe}/>}/>
                 <Route path="bookmark" element={<Bookmark/>}/>
                 <Route path="mealplan" element={<MealPlan/>}/>
                 <Route path="bmi" element={<BMI/>}/>
