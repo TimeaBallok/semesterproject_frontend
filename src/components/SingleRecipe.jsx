@@ -1,4 +1,5 @@
 import React from 'react';
+import {forEach} from "react-bootstrap/ElementChildren";
 
 function SingleRecipe({singleRecipe}) {
     // let myIng;
@@ -15,10 +16,10 @@ function SingleRecipe({singleRecipe}) {
         <div className='column middle'>
             {/*<button onClick={click1}>click</button>*/}
             <h3>{singleRecipe.title}</h3>
-            <p>{singleRecipe.readyInMinutes}</p>
+            <p>Ready in minutes: {singleRecipe.readyInMinutes}</p>
+            <p>Servings: {singleRecipe.servings}</p>
+            <p>Instructions: {singleRecipe.instructions}</p>
             <img src={singleRecipe.image}/>
-
-
 
         </div>
     );
