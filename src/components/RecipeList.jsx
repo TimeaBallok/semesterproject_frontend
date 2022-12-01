@@ -5,7 +5,7 @@ import apiFacade from "../apiFacade.js";
 
 function RecipeList({dataFromServer}) {
 
-    const [singleRecipe, setSingleRecipe] = useState("")
+    const [singleRecipe, setSingleRecipe] = useState({})
 
     // const [toggle, setToggle] = useState(false);
     //
@@ -16,15 +16,16 @@ function RecipeList({dataFromServer}) {
     const fetchSingleRecipe = () => {
         apiFacade.fetchData("recipe/singleRecipe/324694", (data) => {
             console.log(data);
-            setSingleRecipe(data.ex)
-            console.log(singleRecipe.id);
+            setSingleRecipe(data)
+            console.log(singleRecipe.title);
         }, "")
     }
 
     return (
+
         <div className="container">
             {dataFromServer.results.map((recipe) => (
-                <div onClick={fetchSingleRecipe} singleRecipe={singleRecipe} id={recipe.id} key={recipe.id} className="row">
+                <div onClick={fetchSingleRecipe}  id={recipe.id} key={recipe.id} className="row">
                     <div className="col">
                         <img src={recipe.image}/>
                     </div>

@@ -1,9 +1,9 @@
 import React from 'react';
 
-function SingleRecipe({singleRecipe}) {
+function SingleRecipe(props) {
     return (
         <div className='column middle'>
-            <h2>{singleRecipe}</h2>
+            <h2>hello from singleRecipe</h2>
 
 
         </div>
