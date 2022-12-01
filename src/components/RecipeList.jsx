@@ -10,9 +10,9 @@ function RecipeList({dataFromServer, fetchSingleRecipe}) {
 
         <div className="container">
             {dataFromServer.results.map((recipe) => (
-                <Link to={"/singleRecipe"}>
+                <Link to={"/singleRecipe"} key={recipe.id}>
 
-                <div onClick={fetchSingleRecipe}  id={recipe.id} key={recipe.id} className="row">
+                <div onClick={fetchSingleRecipe} id={recipe.id} className="row">
                     <div className="col">
                         <img src={recipe.image}/>
                     </div>

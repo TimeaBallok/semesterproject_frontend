@@ -25,7 +25,7 @@ function SearchRecipe({dataFromServer, setDataFromServer}) {
     const [searchInput, setSearchInput] = useState([{}])
 
     const basicComplexSearchClick = (e) => {
-        console.log("query= "+searchInput);
+        // console.log("query= "+searchInput);
         //arr.map(function(val, index){
         //             return {key:index, value:val*val};
         //         })
@@ -33,13 +33,19 @@ function SearchRecipe({dataFromServer, setDataFromServer}) {
             if (values.boxValue)
                 return "&min"+key+"="+values.min+"&max"+key+"="+values.max;
         }).join("")
-        console.log("selectedFilters: "+selectedFilters)
-        apiFacade.fetchData("recipe/search/" + searchInput+selectedFilters, (data) => {
-            console.log(data);
+        // console.log("selectedFilters: "+selectedFilters)
+        apiFacade.fetchData("recipe/search/pasta margherita" +selectedFilters, (data) => {
+            // console.log(data);
             setDataFromServer(data)
-            console.log(data.results[0]);
+            // console.log(data.results[0]);
         }, "")
-        console.log(filters)
+        // console.log(filters)
+        // apiFacade.fetchData("recipe/search/" + searchInput+selectedFilters, (data) => {
+        //     console.log(data);
+        //     setDataFromServer(data)
+        //     console.log(data.results[0]);
+        // }, "")
+        // console.log(filters)
     }
 
     const changeHandler = (e) => {

@@ -22,20 +22,14 @@ function App() {
     const [loggedIn, setLoggedIn] = useState(false)
     const [errorMessage, setErrorMessage] = useState('It just works! ~Todd Howard');
     const [dataFromServer, setDataFromServer] = useState({"results": []})
-    const [singleRecipe, setSingleRecipe] = useState({"extendedIngredients": [
-        {
-            "id": 18371,
-            "nameClean": "low sodium baking powder",
-            "amount": 1.0,
-            "unit": "teaspoon"
-        }]})
+    const [singleRecipe, setSingleRecipe] = useState({})
 
     const fetchSingleRecipe = (e) => {
-        console.log(e.currentTarget.id);
+        // console.log(e.currentTarget.id);
         apiFacade.fetchData("recipe/singleRecipe/" + e.currentTarget.id, (data) => {
-            console.log(data);
+            // console.log(data);
             setSingleRecipe(data)
-            console.log(singleRecipe.title);
+            // console.log(singleRecipe.title);
         }, "")
     }
 
