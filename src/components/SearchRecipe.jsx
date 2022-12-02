@@ -34,7 +34,7 @@ function SearchRecipe({dataFromServer, setDataFromServer}) {
                 return "&min"+key+"="+values.min+"&max"+key+"="+values.max;
         }).join("")
         // console.log("selectedFilters: "+selectedFilters)
-        apiFacade.fetchData("recipe/search/pasta margherita" +selectedFilters, (data) => {
+        apiFacade.fetchData("recipe/search/"+searchInput +selectedFilters, (data) => {
             // console.log(data);
             setDataFromServer(data)
             // console.log(data.results[0]);

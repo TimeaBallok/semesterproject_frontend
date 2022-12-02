@@ -25,20 +25,24 @@ function SingleRecipe({singleRecipe}) {
     //         },
     useEffect(() => {
             if (singleRecipe.analyzedInstructions) {
-                const temp = singleRecipe.analyzedInstructions[0].steps;
-                console.log(temp[0].step);
-                temp.map((name, steps) => {
-                    console.log("name:");
-                    console.log(name);
-                    console.log("steps:");
-                    console.log(steps);
-                    // values.map((number, step) => {
-                    //     console.log(number)
-                    //     console.log(step)
-                    // })
-                    // console.log(temp[0].name);
-                    // console.log(temp);
-                })
+                const temp = singleRecipe;
+                console.log("analyzedInstructions:");
+                console.log(temp);
+                // temp.map((name, steps) => {
+                //     console.log("name:" + name);
+                //     console.log(name);
+                //     console.log(name.name);
+                //     console.log(name.steps);
+                //     name.steps.map((step, number) => {
+                //         console.log("number:");
+                //         console.log(number);
+                //         console.log("step:");
+                //         console.log(step);
+                //         console.log(step.step);
+                //     })
+                //     console.log("steps:");
+                //     console.log(steps);
+                // })
             }
         },
         [singleRecipe]
@@ -50,11 +54,16 @@ function SingleRecipe({singleRecipe}) {
             <h3>{singleRecipe.title}</h3>
             <p>Ready in minutes: {singleRecipe.readyInMinutes}</p>
             <p>Servings: {singleRecipe.servings}</p>
-            {/*{singleRecipe.analyzedInstructions ? singleRecipe.analyzedInstructions.map((typeName, values) => {*/}
-            {/*    <div>{values.map((number, step) => {*/}
-            {/*        <p>{number}{step}</p>*/}
-            {/*    })}</div>*/}
-            {/*}) : ""}*/}
+            {singleRecipe.analyzedInstructions ? singleRecipe.analyzedInstructions.map((instruction, steps) => (
+                <>
+                    <h4>{instruction.name}</h4>
+                    <ol>
+                        {instruction.steps.map((step, number) => (
+                        <li>{step.step}</li>
+                    ))}
+                    </ol>
+                </>
+                )) : ""}
             {/*<p>Instructions: {singleRecipe.analyzedInstructions}</p>*/}
             <img src={singleRecipe.image}/>
             <br/>
