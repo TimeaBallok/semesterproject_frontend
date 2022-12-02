@@ -69,7 +69,8 @@ function SingleRecipe({singleRecipe}) {
                     <li key={ing.nameClean}>{ing.nameClean}: {ing.amount} {ing.unit}</li>
                 )) : ""}
             </ul>
-            <h4>Nutriooons</h4>
+            <h4>Nutriooons:</h4>
+            <i>per serving</i>
             <ul>
             {singleRecipe.nutrition ? singleRecipe.nutrition.nutrients.map((nutrient) => (
                 <li><b>{nutrient.name}:</b> {nutrient.amount} {nutrient.unit}</li>
