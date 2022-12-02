@@ -37,9 +37,9 @@ function SingleRecipe({singleRecipe}) {
         <div className='column middle'>
             <h3>{singleRecipe.title}</h3>
             <b>Diet('s): </b>
-            {singleRecipe.diets.map((diet, index) => (
+            {singleRecipe.analyzedInstructions ? (singleRecipe.diets.map((diet, index) => (
                 <i>{diet}{singleRecipe.diets.length-1  == index ? "" : ", "}</i>
-            ))}
+            ))) : ""}
             <img src={singleRecipe.image}/>{/*Style me....*/}
             {/*<p>{singleRecipe.summary}</p>*/} {/* <---  is bad */}
             <p>Ready in minutes: {singleRecipe.readyInMinutes}</p>
