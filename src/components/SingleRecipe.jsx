@@ -25,9 +25,15 @@ function SingleRecipe({singleRecipe}) {
     //         },
     useEffect(() => {
             if (singleRecipe.analyzedInstructions) {
-                const temp = singleRecipe;
+                const temp = singleRecipe.nutrition;
                 console.log("singleRecipe:");
-                console.log(temp);
+                console.log(temp.nutrients);
+                singleRecipe.nutrition.nutrients.map((name,amount,unit, percentOfDailyNeeds) =>(
+                   console.log("name:"),
+                   console.log(name.name),
+                   console.log("amount:"),
+                   console.log(amount)
+                ))
             }
         },
         [singleRecipe]
@@ -40,6 +46,7 @@ function SingleRecipe({singleRecipe}) {
             {singleRecipe.analyzedInstructions ? (singleRecipe.diets.map((diet, index) => (
                 <i>{diet}{singleRecipe.diets.length-1  == index ? "" : ", "}</i>
             ))) : ""}
+            <br/>
             <img src={singleRecipe.image}/>{/*Style me....*/}
             {/*<p>{singleRecipe.summary}</p>*/} {/* <---  is bad */}
             <p>Ready in minutes: {singleRecipe.readyInMinutes}</p>
@@ -56,12 +63,18 @@ function SingleRecipe({singleRecipe}) {
                 </>
                 )) : ""}
             <br/>
+            <h4>Ungh-gradients</h4>
             <ul>
                 {singleRecipe.extendedIngredients ? (singleRecipe.extendedIngredients.map(ing =>
                     <li key={ing.nameClean}>{ing.nameClean}: {ing.amount} {ing.unit}</li>
                 )) : ""}
             </ul>
-
+            <h4>Nutriooons</h4>
+            <ul>
+            {singleRecipe.nutrition ? singleRecipe.nutrition.nutrients.map((nutrient) => (
+                <li><b>{nutrient.name}:</b> {nutrient.amount} {nutrient.unit}</li>
+            )): ""}
+            </ul>
         </div>
     );
 }
