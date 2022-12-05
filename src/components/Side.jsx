@@ -1,5 +1,7 @@
 import React from 'react';
 import {NavLink, Link} from "react-router-dom";
+import facade from "../apiFacade.js";
+
 
 function Side(props) {
     return (
@@ -7,7 +9,7 @@ function Side(props) {
             <nav>
                 <br/>
                 <div>
-                    <NavLink to={"/search"} >Search recipes</NavLink>
+                    <NavLink to= {props.loggedIn ? "/search": "/login"}>Search recipes"</NavLink>
                 </div>
                 <br/>
                 <div>

@@ -25,9 +25,6 @@ function Bmi(props) {
 
     return (
         <div className="column middle">
-            <h2>Test BMI</h2>
-
-
             <h1>BMI Calculator</h1>
             <input
                 type="text"

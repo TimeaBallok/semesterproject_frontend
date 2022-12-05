@@ -16,6 +16,7 @@ import BMI from "./components/BMI.jsx";
 import apiFacade from "./apiFacade.js";
 import RecipeList from "./components/RecipeList.jsx";
 import SingleRecipe from "./components/SingleRecipe.jsx";
+import {Link} from "react-router-dom";
 
 function App() {
     //usestates her
@@ -38,15 +39,15 @@ function App() {
         <BrowserRouter>
 
             <div className="row">
-                <Navbarcomp/>
-                <Side />
+                <Navbarcomp loggedIn={loggedIn} />
+                <Side loggedIn={loggedIn} />
 
             <Routes>
                 <Route path="/" element={<WelcomePage/>}/>
-                <Route path="search" element={<SearchRecipe dataFromServer={dataFromServer} setDataFromServer={setDataFromServer}/>}>
+                <Route path="search" element={facade.hasUserAccess('user',loggedIn) ? <SearchRecipe dataFromServer={dataFromServer} setDataFromServer={setDataFromServer}/>: (<h4 className='column middle'>Please login before trying to use our service <Link to={"/login"}>Login</Link> </h4>)}>
                     <Route index element={<RecipeList fetchSingleRecipe={fetchSingleRecipe} dataFromServer={dataFromServer}/>}/>
                 </Route>
-                <Route path="singleRecipe" element={<SingleRecipe singleRecipe={singleRecipe}/>}/>
+                <Route path="singleRecipe" element={facade.hasUserAccess('user',loggedIn) ? <SingleRecipe singleRecipe={singleRecipe}/>: <h4 className='column middle'>Please login before trying to use our service. <Link to={"/login"}>Login</Link></h4>}/>
                 <Route path="bookmark" element={<Bookmark/>}/>
                 <Route path="mealplan" element={<MealPlan/>}/>
                 <Route path="bmi" element={<BMI/>}/>
