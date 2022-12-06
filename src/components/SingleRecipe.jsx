@@ -24,6 +24,8 @@ function SingleRecipe({singleRecipe}) {
     //           "step": "Preheat the oven to 200 degrees F."
     //         },
     useEffect(() => {
+            console.log("Jeg er gået på efterløn... blevet træt og doven:");
+            console.log(singleRecipe);
             if (singleRecipe.analyzedInstructions) {
                 const temp = singleRecipe.nutrition;
                 console.log("singleRecipe:");
@@ -36,14 +38,14 @@ function SingleRecipe({singleRecipe}) {
                 ))
             }
         },
-        [singleRecipe]
+        []
     )
-
+//[0]
     return (
         <div className='column middle'>
             <h3>{singleRecipe.title}</h3>
             <b>Diet('s): </b>
-            {singleRecipe.analyzedInstructions ? (singleRecipe.diets.map((diet, index) => (
+            {singleRecipe.diets ? (singleRecipe.diets.map((diet, index) => (
                 <i>{diet}{singleRecipe.diets.length-1  == index ? "" : ", "}</i>
             ))) : ""}
             <br/>
@@ -76,6 +78,7 @@ function SingleRecipe({singleRecipe}) {
                 <li><b>{nutrient.name}:</b> {nutrient.amount} {nutrient.unit}</li>
             )): ""}
             </ul>
+            {/*<button onClick={() => this.innerHTML = "DO EET AGAIN!"}>PRESS ME!</button>*/}
         </div>
     );
 }

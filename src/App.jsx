@@ -8,7 +8,7 @@ import GetJoke from "./components/GetJoke.jsx";
 import {Alert} from "react-bootstrap";
 import facade from "./apiFacade.js";
 import Footer from "./components/Footer.jsx";
-import Side from "./components/Side.jsx";
+import SideBar from "./components/SideBar.jsx";
 import SearchRecipe from "./components/SearchRecipe.jsx";
 import Bookmark from "./components/Bookmark.jsx";
 import MealPlan from "./components/MealPlan.jsx";
@@ -40,7 +40,7 @@ function App() {
 
             <div className="row">
                 <Navbarcomp loggedIn={loggedIn} />
-                <Side loggedIn={loggedIn} />
+                <SideBar loggedIn={loggedIn} />
 
             <Routes>
                 <Route path="/" element={<WelcomePage/>}/>

@@ -3,13 +3,13 @@ import {NavLink, Link} from "react-router-dom";
 import facade from "../apiFacade.js";
 
 
-function Side(props) {
+function SideBar(props) {
     return (
         <div className="column side">
             <nav>
                 <br/>
                 <div>
-                    <NavLink to= {props.loggedIn ? "/search": "/login"}>Search recipes"</NavLink>
+                    <NavLink to= {props.loggedIn ? "/search": "/login"}>Search recipes</NavLink>
                 </div>
                 <br/>
                 <div>
@@ -34,4 +34,4 @@ function Side(props) {
     );
 }
 
-export default Side;
+export default SideBar;
