@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {forEach} from "react-bootstrap/ElementChildren";
 import facade from "../apiFacade.js";
+import apiFacade from "../apiFacade.js";
 
 function SingleRecipe({singleRecipe}) {
     // let myIng;
@@ -24,8 +25,6 @@ function SingleRecipe({singleRecipe}) {
     //           "step": "Preheat the oven to 200 degrees F."
     //         },
     useEffect(() => {
-            console.log("Jeg er gået på efterløn... blevet træt og doven:");
-            console.log(singleRecipe);
             if (singleRecipe.analyzedInstructions) {
                 const temp = singleRecipe.nutrition;
                 console.log("singleRecipe:");
@@ -40,7 +39,49 @@ function SingleRecipe({singleRecipe}) {
         },
         []
     )
-//[0]
+
+    const addToMealPlan = async (e) => {
+        const userName = apiFacade.getUserName();
+        let recipeId = singleRecipe.id;
+        let recipeSaved = false;
+        await apiFacade.postData("recipe/", (data) => {
+            console.log("Recipe with ID:" + data + " was successfully saved to DB or was already");
+            if (data === recipeId)
+                recipeSaved = true;
+            console.log(recipeSaved);
+        }, "Failed to save recipe to local DB", singleRecipe)
+
+        if (recipeSaved) {
+            let mealPlanJSON = "{\n";
+            mealPlanJSON += "\t\"userName\": \""+userName+"\"\n";
+            mealPlanJSON += "\t\"recipeId\": \""+recipeId+"\"\n";
+            mealPlanJSON += "\t\"type\": \""+"CHOOSE YOUR DESTINY.... FIGHT!"+"\"\n";
+            mealPlanJSON += "\t\"date\": {\n";
+            const now = new Date();
+            mealPlanJSON += "\t\t\"year\": "+now.getFullYear()+"\n";
+            mealPlanJSON += "\t\t\"month\": "+now.getMonth()+"\n";
+            mealPlanJSON += "\t\t\"day\": "+now.getDay()+"\n";
+            mealPlanJSON += "\t}\n";
+            mealPlanJSON += "}";
+            console.log(mealPlanJSON);
+            //"userName": "user",
+            //"recipeId": 324694,
+            //   "type": "DINNER",
+            //   "date": {
+            //     "year": 2022,
+            //     "month": 12,
+            //     "day": 6
+            //   }
+            console.log("You can add to mealplan now! :D")
+            // apiFacade.postData("mealPlan/", (data) => {
+            //     console.log("Recipe with ID:" + data + " was successfully saved to DB or was already");
+            //     // console.log(data.results[0]);
+            // }, "Failed to save recipe to local DB", singleRecipe)
+        }
+        // console.log(recipeId);
+        // console.log("username: "+ userName +"|||recipeId: " +recipeId);
+    }
+
     return (
         <div className='column middle'>
             <h3>{singleRecipe.title}</h3>
@@ -78,7 +119,7 @@ function SingleRecipe({singleRecipe}) {
                 <li><b>{nutrient.name}:</b> {nutrient.amount} {nutrient.unit}</li>
             )): ""}
             </ul>
-            {/*<button onClick={() => this.innerHTML = "DO EET AGAIN!"}>PRESS ME!</button>*/}
+            <button onClick={addToMealPlan}>Add to mealplan</button>
         </div>
     );
 }

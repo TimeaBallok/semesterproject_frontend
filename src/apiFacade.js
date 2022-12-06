@@ -64,6 +64,23 @@ function apiFacade() {
             })
     }
 
+    const postData = (endpoint, updateAction, SetErrorMessage, jsonBody) =>
+    {
+        const options = makeOptions("POST", true, jsonBody); //True add's the token
+        return fetch(URL + "/api/" + endpoint, options)
+            .then(handleHttpErrors)
+            .then((data) => updateAction(data))
+            .catch(err =>
+            {
+                if (err.status)
+                {
+                    console.log(err)
+                    err.fullError.then(e => SetErrorMessage(e.code + ": " + e.message))
+                }
+                else { SetErrorMessage("Network error"); }
+            })
+    }
+
     const fetchJoke = () => {const options = makeOptions("GET",true); //True add's the token
         return fetch(URL + "/api/joke/haha", options).then(handleHttpErrors);
     }
@@ -77,6 +94,18 @@ function apiFacade() {
             const decodedClaims = JSON.parse(window.atob(payloadBase64))
             const roles = decodedClaims.roles
             return roles
+        } else return ""
+    }
+
+    const getUserName = () =>
+    {
+        const token = getToken()
+        if (token != null)
+        {
+            const payloadBase64 = getToken().split('.')[1]
+            const decodedClaims = JSON.parse(window.atob(payloadBase64))
+            const username = decodedClaims.username
+            return username
         } else return ""
     }
 
@@ -111,8 +140,10 @@ function apiFacade() {
         login,
         logout,
         fetchData,
+        postData,
         hasUserAccess,
-        getUserRoles
+        getUserRoles,
+        getUserName
     }
 }
 const facade = apiFacade();
