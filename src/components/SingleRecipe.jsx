@@ -4,6 +4,14 @@ import facade from "../apiFacade.js";
 import apiFacade from "../apiFacade.js";
 
 function SingleRecipe({singleRecipe}) {
+
+    const initBookmarkJSON =
+        {
+            "userName": "user",
+            "recipeId": 654812
+        }
+
+    const [bookmarkJSON, setBookmarkJSON] = useState(initBookmarkJSON)
     // let myIng;
     // console.log(singleRecipe.extendedIngredients)
     //
@@ -29,11 +37,11 @@ function SingleRecipe({singleRecipe}) {
                 const temp = singleRecipe.nutrition;
                 console.log("singleRecipe:");
                 console.log(temp.nutrients);
-                singleRecipe.nutrition.nutrients.map((name,amount,unit, percentOfDailyNeeds) =>(
-                   console.log("name:"),
-                   console.log(name.name),
-                   console.log("amount:"),
-                   console.log(amount)
+                singleRecipe.nutrition.nutrients.map((name, amount, unit, percentOfDailyNeeds) => (
+                    console.log("name:"),
+                        console.log(name.name),
+                        console.log("amount:"),
+                        console.log(amount)
                 ))
             }
         },
@@ -53,14 +61,14 @@ function SingleRecipe({singleRecipe}) {
 
         if (recipeSaved) {
             let mealPlanJSON = "{\n";
-            mealPlanJSON += "\t\"userName\": \""+userName+"\"\n";
-            mealPlanJSON += "\t\"recipeId\": \""+recipeId+"\"\n";
-            mealPlanJSON += "\t\"type\": \""+"CHOOSE YOUR DESTINY.... FIGHT!"+"\"\n";
+            mealPlanJSON += "\t\"userName\": \"" + userName + "\"\n";
+            mealPlanJSON += "\t\"recipeId\": \"" + recipeId + "\"\n";
+            mealPlanJSON += "\t\"type\": \"" + "CHOOSE YOUR DESTINY.... FIGHT!" + "\"\n";
             mealPlanJSON += "\t\"date\": {\n";
             const now = new Date();
-            mealPlanJSON += "\t\t\"year\": "+now.getFullYear()+"\n";
-            mealPlanJSON += "\t\t\"month\": "+now.getMonth()+"\n";
-            mealPlanJSON += "\t\t\"day\": "+now.getDay()+"\n";
+            mealPlanJSON += "\t\t\"year\": " + now.getFullYear() + "\n";
+            mealPlanJSON += "\t\t\"month\": " + now.getMonth() + "\n";
+            mealPlanJSON += "\t\t\"day\": " + now.getDay() + "\n";
             mealPlanJSON += "\t}\n";
             mealPlanJSON += "}";
             console.log(mealPlanJSON);
@@ -82,12 +90,39 @@ function SingleRecipe({singleRecipe}) {
         // console.log("username: "+ userName +"|||recipeId: " +recipeId);
     }
 
+    const addToBookmark = async (e) => {
+        const userName2 = apiFacade.getUserName();
+        let recipeId2 = singleRecipe.id;
+        let recipeSaved = false;
+        await apiFacade.postData("recipe/", (data) => {
+            console.log("Recipe with ID:" + data + " was successfully saved to DB or was already");
+            if (data === recipeId2)
+                recipeSaved = true;
+            console.log(recipeSaved);
+        }, "Failed to save recipe to local DB", singleRecipe)
+
+        if (recipeSaved) {
+            // let bookmarkJSON = "{\n";
+            // bookmarkJSON += "\t\"userName\": \""+userName+"\"\n";
+            // bookmarkJSON += "\t\"recipeId\": \""+recipeId+"\"\n";
+            // bookmarkJSON += "}";
+
+            console.log(bookmarkJSON);
+
+            console.log("You can add to bookmark now! :D")
+            apiFacade.postData("bookmark/", (data) => {
+                console.log("Bookmark to recipeId: " + data.recipeId + " userName: " + data.userName);
+            }, "Failed to add to bookmark", bookmarkJSON)
+            console.log("Saved in DB")
+        }
+    }
+
     return (
         <div className='column middle'>
             <h3>{singleRecipe.title}</h3>
             <b>Diet('s): </b>
             {singleRecipe.diets ? (singleRecipe.diets.map((diet, index) => (
-                <i>{diet}{singleRecipe.diets.length-1  == index ? "" : ", "}</i>
+                <i>{diet}{singleRecipe.diets.length - 1 == index ? "" : ", "}</i>
             ))) : ""}
             <br/>
             <img src={singleRecipe.image}/>{/*Style me....*/}
@@ -100,11 +135,11 @@ function SingleRecipe({singleRecipe}) {
                     <h5>{instruction.name}</h5>
                     <ol>
                         {instruction.steps.map((step, number) => (
-                        <li>{step.step}</li>
-                    ))}
+                            <li>{step.step}</li>
+                        ))}
                     </ol>
                 </>
-                )) : ""}
+            )) : ""}
             <br/>
             <h4>Ungh-gradients</h4>
             <ul>
@@ -115,11 +150,18 @@ function SingleRecipe({singleRecipe}) {
             <h4>Nutriooons:</h4>
             <i>per serving</i>
             <ul>
-            {singleRecipe.nutrition ? singleRecipe.nutrition.nutrients.map((nutrient) => (
-                <li><b>{nutrient.name}:</b> {nutrient.amount} {nutrient.unit}</li>
-            )): ""}
+                {singleRecipe.nutrition ? singleRecipe.nutrition.nutrients.map((nutrient) => (
+                    <li><b>{nutrient.name}:</b> {nutrient.amount} {nutrient.unit}</li>
+                )) : ""}
             </ul>
-            <button onClick={addToMealPlan}>Add to mealplan</button>
+            <div>
+                <button onClick={addToMealPlan}>Add to mealplan</button>
+            </div>
+            <br/>
+            <div>
+                <button onClick={addToBookmark}>Add to bookmark</button>
+            </div>
+
         </div>
     );
 }
