@@ -11,7 +11,19 @@ function SingleRecipe({singleRecipe}) {
             "recipeId": 654812
         }
 
+    const initMealPlanJSON = {
+        "userName": "",
+        "recipeId": "",
+        "type": "CHOOSE YOUR DESTINY.... FIGHT!",
+        "date": {
+            "year": " +now.getFullYear() + ",
+            "month": " +now.getMonth() + ",
+            "day": " +now.getDay() + ",
+        }
+    }
+
     const [bookmarkJSON, setBookmarkJSON] = useState(initBookmarkJSON)
+    const [mplanJson, setMplanJson] = useState(initBookmarkJSON)
     // let myIng;
     // console.log(singleRecipe.extendedIngredients)
     //
@@ -49,7 +61,7 @@ function SingleRecipe({singleRecipe}) {
     )
 
     const addToMealPlan = async (e) => {
-        const userName = apiFacade.getUserName();
+        const currentUser = apiFacade.getUserName();
         let recipeId = singleRecipe.id;
         let recipeSaved = false;
         await apiFacade.postData("recipe/", (data) => {
@@ -60,18 +72,20 @@ function SingleRecipe({singleRecipe}) {
         }, "Failed to save recipe to local DB", singleRecipe)
 
         if (recipeSaved) {
-            let mealPlanJSON = "{\n";
-            mealPlanJSON += "\t\"userName\": \"" + userName + "\"\n";
-            mealPlanJSON += "\t\"recipeId\": \"" + recipeId + "\"\n";
-            mealPlanJSON += "\t\"type\": \"" + "CHOOSE YOUR DESTINY.... FIGHT!" + "\"\n";
-            mealPlanJSON += "\t\"date\": {\n";
-            const now = new Date();
-            mealPlanJSON += "\t\t\"year\": " + now.getFullYear() + "\n";
-            mealPlanJSON += "\t\t\"month\": " + now.getMonth() + "\n";
-            mealPlanJSON += "\t\t\"day\": " + now.getDay() + "\n";
-            mealPlanJSON += "\t}\n";
-            mealPlanJSON += "}";
-            console.log(mealPlanJSON);
+            setMplanJson(prevMealPlan => {
+                return {
+                    ...prevMealPlan,
+                    userName: currentUser,
+                    recipeId: recipeId,
+                    type: "CHOOSE YOUR DESTINY.... FIGHT!",
+                    date: {
+                        year: new Date().getFullYear(),
+                        month: new Date().getMonth(),
+                        day: new Date().getDay()
+                    }
+                }
+            })
+            console.log(mplanJson);
             //"userName": "user",
             //"recipeId": 324694,
             //   "type": "DINNER",
