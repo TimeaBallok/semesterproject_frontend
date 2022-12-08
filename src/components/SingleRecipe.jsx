@@ -105,21 +105,24 @@ function SingleRecipe({singleRecipe}) {
     }
 
     const addToBookmark = async (e) => {
-        const userName2 = apiFacade.getUserName();
-        let recipeId2 = singleRecipe.id;
+        const currentUser = apiFacade.getUserName();
+        let recipeId = singleRecipe.id;
         let recipeSaved = false;
         await apiFacade.postData("recipe/", (data) => {
             console.log("Recipe with ID:" + data + " was successfully saved to DB or was already");
-            if (data === recipeId2)
+            if (data === recipeId)
                 recipeSaved = true;
             console.log(recipeSaved);
         }, "Failed to save recipe to local DB", singleRecipe)
 
         if (recipeSaved) {
-            // let bookmarkJSON = "{\n";
-            // bookmarkJSON += "\t\"userName\": \""+userName+"\"\n";
-            // bookmarkJSON += "\t\"recipeId\": \""+recipeId+"\"\n";
-            // bookmarkJSON += "}";
+            setBookmarkJSON(prevBookmark => {
+                return {
+                    ...prevBookmark,
+                    userName: currentUser,
+                    recipeId: recipeId,
+                }
+            })
 
             console.log(bookmarkJSON);
 
