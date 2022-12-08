@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {forEach} from "react-bootstrap/ElementChildren";
 import facade from "../apiFacade.js";
 import apiFacade from "../apiFacade.js";
+import MealPlanModal from "./MealPlanModal.jsx";
 
 function SingleRecipe({singleRecipe}) {
 
@@ -12,8 +13,8 @@ function SingleRecipe({singleRecipe}) {
         }
 
     const initMealPlanJSON = {
-        "userName": "",
-        "recipeId": "",
+        "userName": "DIN TÅBE",
+        "recipeId": -1,
         "type": "CHOOSE YOUR DESTINY.... FIGHT!",
         "date": {
             "year": " +now.getFullYear() + ",
@@ -24,43 +25,44 @@ function SingleRecipe({singleRecipe}) {
 
     const [bookmarkJSON, setBookmarkJSON] = useState(initBookmarkJSON)
     const [mplanJson, setMplanJson] = useState(initMealPlanJSON)
-    // let myIng;
-    // console.log(singleRecipe.extendedIngredients)
-    //
-    // const click1 = () => {
-    //     myIng = singleRecipe.extendedIngredients
-    //     console.log(myIng)
-    //     myIng.map((ing) =>{
-    //         console.log(ing.nameClean)
-    //     })
-    // }
-    // const [myBoolean, setMyBoolean] = useState(false)
+    const [mealplanUI, setMealplanUI] = useState(false);
+    const [mDate, setMDate] = useState({"year": new Date().getFullYear(), "month": new Date().getMonth(), "day":new Date().getDay()});
+    const [mType, setMType] = useState("");
+    // const [open, setOpen] = React.useState(false);
 
-    //"analyzedInstructions": [
-    //     {
-    //       "name": "",
-    //       "steps": [
-    //         {
-    //           "number": 1,
-    //           "step": "Preheat the oven to 200 degrees F."
-    //         },
     useEffect(() => {
-            if (singleRecipe.analyzedInstructions) {
-                const temp = singleRecipe.nutrition;
-                console.log("singleRecipe:");
-                console.log(temp.nutrients);
-                singleRecipe.nutrition.nutrients.map((name, amount, unit, percentOfDailyNeeds) => (
-                    console.log("name:"),
-                        console.log(name.name),
-                        console.log("amount:"),
-                        console.log(amount)
-                ))
-            }
+            // if (singleRecipe.analyzedInstructions) {
+            //     const temp = singleRecipe.nutrition;
+            //     console.log("singleRecipe:");
+            //     console.log(temp.nutrients);
+            //     singleRecipe.nutrition.nutrients.map((name, amount, unit, percentOfDailyNeeds) => (
+            //         console.log("name:"),
+            //             console.log(name.name),
+            //             console.log("amount:"),
+            //             console.log(amount)
+            //     ))
+            // }
+            console.log(mplanJson);
+            console.log(mDate.year)
         },
-        []
+        [mplanJson]
     )
 
-    const addToMealPlan = async (e) => {
+
+    const addToMealPlanButton = (e) => {
+        e.preventDefault()
+        // console.log(mealplanUI)
+        setMealplanUI(!mealplanUI);
+    }
+
+    const saveToMealPlan = (e) => {
+        e.preventDefault()
+        addToMealPlan2(e)
+        setMealplanUI(!mealplanUI);
+    }
+
+    const addToMealPlan2 = async (e) => {
+        setMealplanUI(!mealplanUI);
         const currentUser = apiFacade.getUserName();
         let recipeId = singleRecipe.id;
         let recipeSaved = false;
@@ -77,31 +79,22 @@ function SingleRecipe({singleRecipe}) {
                     ...prevMealPlan,
                     userName: currentUser,
                     recipeId: recipeId,
-                    type: "CHOOSE YOUR DESTINY.... FIGHT!",
+                    type: mType,
                     date: {
-                        year: new Date().getFullYear(),
-                        month: new Date().getMonth(),
-                        day: new Date().getDay()
+                        // year: mdate.current.value.toString().substring(0,4),
+                        year: mDate.year,
+                        month: mDate.month,
+                        day: mDate.day
                     }
                 }
             })
+            await apiFacade.postData("mealPlan/", (data) => {
+                console.log("MEALPLAN with ID:" + data + " was successfully saved to DB or was already");
+            }, "Failed to save mealplan to local DB", mplanJson)
+
             console.log(mplanJson);
-            //"userName": "user",
-            //"recipeId": 324694,
-            //   "type": "DINNER",
-            //   "date": {
-            //     "year": 2022,
-            //     "month": 12,
-            //     "day": 6
-            //   }
             console.log("You can add to mealplan now! :D")
-            // apiFacade.postData("mealPlan/", (data) => {
-            //     console.log("Recipe with ID:" + data + " was successfully saved to DB or was already");
-            //     // console.log(data.results[0]);
-            // }, "Failed to save recipe to local DB", singleRecipe)
         }
-        // console.log(recipeId);
-        // console.log("username: "+ userName +"|||recipeId: " +recipeId);
     }
 
     const addToBookmark = async (e) => {
@@ -132,6 +125,17 @@ function SingleRecipe({singleRecipe}) {
             }, "Failed to add to bookmark", bookmarkJSON)
             console.log("Saved in DB")
         }
+    }
+
+    const onDateChange = (e) => {
+        console.log(e.target.value)
+        setMDate({"year": new Date(e.target.value).getFullYear(), "month": new Date(e.target.value).getMonth(), "day":new Date(e.target.value).getDay()})
+        console.log(mDate);
+    }
+
+    const onTypeChange = (e) => {
+        setMType(e.target.value)
+        console.log(mType);
     }
 
     return (
@@ -172,7 +176,22 @@ function SingleRecipe({singleRecipe}) {
                 )) : ""}
             </ul>
             <div>
-                <button onClick={addToMealPlan}>Add to mealplan</button>
+                {mealplanUI ? (
+                    <>
+                        <label htmlFor="start">Date:</label>
+
+                        <input type="date" id="start" name="trip-start"
+                               min={new Date().toISOString().split("T")[0]} max="2025-12-31" onChange={onDateChange}/>
+                        {/*value={mDate.year+"-"+mDate.month+"-"+mDate.day}*/}
+                        <label htmlFor="mealTypeSelect">Choose a meal type:</label>
+                        <select name="mealTypeSelect" id="mealTypeSelect" onChange={onTypeChange}>
+                                <option value="BREAKFAST">Breakfast</option>
+                                <option value="LUNCH">Lunch</option>
+                                <option value="DINNER">Dinner</option>
+                        </select>
+
+                        <button onClick={saveToMealPlan}>Save me plz oh lord.... just work damn u</button>
+                    </>) : <button onClick={addToMealPlanButton}>Add to mealplan</button>}
             </div>
             <br/>
             <div>
