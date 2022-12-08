@@ -23,7 +23,7 @@ function SingleRecipe({singleRecipe}) {
     }
 
     const [bookmarkJSON, setBookmarkJSON] = useState(initBookmarkJSON)
-    const [mplanJson, setMplanJson] = useState(initBookmarkJSON)
+    const [mplanJson, setMplanJson] = useState(initMealPlanJSON)
     // let myIng;
     // console.log(singleRecipe.extendedIngredients)
     //
