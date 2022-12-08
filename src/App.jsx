@@ -24,6 +24,7 @@ function App() {
     const [errorMessage, setErrorMessage] = useState('It just works! ~Todd Howard');
     const [dataFromServer, setDataFromServer] = useState({"results": []})
     const [singleRecipe, setSingleRecipe] = useState({})
+    const [bookmarkList, setBookmarkList] = useState([])
 
     const fetchSingleRecipe = (e) => {
         // console.log(e.currentTarget.id);
@@ -34,13 +35,22 @@ function App() {
         }, "")
     }
 
+    const fetchBookmarks = (e) => {
+        const currentUser = apiFacade.getUserName();
+        apiFacade.fetchData("bookmark/" + currentUser, (data) => {
+             // console.log(data);
+            setBookmarkList(data)
+            // console.log(singleRecipe.title);
+        }, "")
+    }
+
 
     return (
         <BrowserRouter>
 
             <div className="row">
                 <Navbarcomp loggedIn={loggedIn} />
-                <SideBar loggedIn={loggedIn} />
+                <SideBar loggedIn={loggedIn} fetchBookmarks={fetchBookmarks}/>
 
             <Routes>
                 <Route path="/" element={<WelcomePage/>}/>
@@ -48,7 +58,7 @@ function App() {
                     <Route index element={<RecipeList fetchSingleRecipe={fetchSingleRecipe} dataFromServer={dataFromServer}/>}/>
                 </Route>
                 <Route path="singleRecipe" element={facade.hasUserAccess('user',loggedIn) ? <SingleRecipe singleRecipe={singleRecipe}/>: <h4 className='column middle'>Please login before trying to use our service. <Link to={"/login"}>Login</Link></h4>}/>
-                <Route path="bookmark" element={<Bookmark/>}/>
+                <Route path="bookmark" element={<Bookmark fetchSingleRecipe={fetchSingleRecipe} setErrorMessage={setErrorMessage} bookmarkList={bookmarkList}/> } />
                 <Route path="mealplan" element={<MealPlan/>}/>
                 <Route path="bmi" element={<BMI/>}/>
                 <Route path="about" element={<SearchRecipe/>}/>

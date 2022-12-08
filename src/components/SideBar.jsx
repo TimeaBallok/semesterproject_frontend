@@ -12,7 +12,7 @@ function SideBar(props) {
                     <NavLink to= {props.loggedIn ? "/search": "/login"}>Search recipes</NavLink>
                 </div>
                 <br/>
-                <div>
+                <div onClick={props.fetchBookmarks}>
                     <NavLink to={"/bookmark"} >My bookmarks</NavLink>
                 </div>
                 <br/>
