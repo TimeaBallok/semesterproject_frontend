@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {forEach} from "react-bootstrap/ElementChildren";
 import facade from "../apiFacade.js";
 import apiFacade from "../apiFacade.js";
+import MealPlanModal from "./MealPlanModal.jsx";
+import DatePicker from 'react-date-picker';
 
 function SingleRecipe({singleRecipe}) {
 
@@ -24,26 +26,10 @@ function SingleRecipe({singleRecipe}) {
 
     const [bookmarkJSON, setBookmarkJSON] = useState(initBookmarkJSON)
     const [mplanJson, setMplanJson] = useState(initMealPlanJSON)
-    // let myIng;
-    // console.log(singleRecipe.extendedIngredients)
-    //
-    // const click1 = () => {
-    //     myIng = singleRecipe.extendedIngredients
-    //     console.log(myIng)
-    //     myIng.map((ing) =>{
-    //         console.log(ing.nameClean)
-    //     })
-    // }
-    // const [myBoolean, setMyBoolean] = useState(false)
+    const [mealplanUI, setMealplanUI] = useState(false);
+    const [mDate, setMDate] = useState(new Date());
+    // const [open, setOpen] = React.useState(false);
 
-    //"analyzedInstructions": [
-    //     {
-    //       "name": "",
-    //       "steps": [
-    //         {
-    //           "number": 1,
-    //           "step": "Preheat the oven to 200 degrees F."
-    //         },
     useEffect(() => {
             if (singleRecipe.analyzedInstructions) {
                 const temp = singleRecipe.nutrition;
@@ -60,7 +46,20 @@ function SingleRecipe({singleRecipe}) {
         []
     )
 
-    const addToMealPlan = async (e) => {
+    const addToMealPlan = (e) => {
+        setMealplanUI(!mealplanUI);
+        if (e.target.innerHTML === "Add to mealplan")
+            e.target.innerHTML = "Save"
+        else {
+            // addToMealPlan2(e)
+            console.log(mDate);
+
+            e.target.innerHTML = "Add to mealplan";
+        }
+    }
+
+    const addToMealPlan2 = async (e) => {
+        setMealplanUI(true);
         const currentUser = apiFacade.getUserName();
         let recipeId = singleRecipe.id;
         let recipeSaved = false;
@@ -86,22 +85,8 @@ function SingleRecipe({singleRecipe}) {
                 }
             })
             console.log(mplanJson);
-            //"userName": "user",
-            //"recipeId": 324694,
-            //   "type": "DINNER",
-            //   "date": {
-            //     "year": 2022,
-            //     "month": 12,
-            //     "day": 6
-            //   }
             console.log("You can add to mealplan now! :D")
-            // apiFacade.postData("mealPlan/", (data) => {
-            //     console.log("Recipe with ID:" + data + " was successfully saved to DB or was already");
-            //     // console.log(data.results[0]);
-            // }, "Failed to save recipe to local DB", singleRecipe)
         }
-        // console.log(recipeId);
-        // console.log("username: "+ userName +"|||recipeId: " +recipeId);
     }
 
     const addToBookmark = async (e) => {
@@ -173,10 +158,17 @@ function SingleRecipe({singleRecipe}) {
             </ul>
             <div>
                 <button onClick={addToMealPlan}>Add to mealplan</button>
+                {mealplanUI ? (
+                    <>
+                        <label htmlFor="start">Date:</label>
+                        <DatePicker onChange={setMDate} value={mDate} />
+                    </>) : ""}
             </div>
             <br/>
+            }}
             <div>
                 <button onClick={addToBookmark}>Add to bookmark</button>
+                {/*<MealPlanModal setMplanJson={setMplanJson} open={open} setOpen={setOpen}/>*/}
             </div>
 
         </div>
