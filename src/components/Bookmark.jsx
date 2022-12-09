@@ -1,41 +1,47 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import apiFacade from "../apiFacade.js";
 import {Link} from "react-router-dom";
 
 function Bookmark({bookmarkList, fetchSingleRecipe}) {
 
-    const [recipe, setRecipe] = useState({})
+    const [recipe, setRecipe] = useState([])
     const recipeArray = []
 
-    function getRecipe (id) {
-        apiFacade.fetchData("recipe/" + id, (data) => {
-            console.log("Data" + data);
-             setRecipe(data)
-             console.log("Efter set: " + recipe);
-        }, "")
-    }
+    // function getRecipe (id) {
+    //     apiFacade.fetchData("recipe/" + id, (data) => {
+    //         console.log("Data" + data);
+    //          setRecipe(data)
+    //          console.log("Efter set: " + recipe);
+    //     }, "")
+    // }
 
-// const getRecipe = (id) => {
-//     apiFacade.fetchData("recipe/singleRecipe/" + id, (data) => {
-//          console.log(data);
-//         setRecipe(data)
-//         // console.log(singleRecipe.title);
-//     }, "")
-// }
+    useEffect(() => {
+        bookmarkList.map(async (bookmark) => {
+            console.log(bookmark.recipeId)
+            await apiFacade.fetchData("recipe/" + bookmark.recipeId, (data) => {
+                console.log(data);
+                setRecipe(recipe => [...recipe, data])
+                console.log("efter set")
+                console.log(data)
+            }, "")
+        })
+        console.log(recipe)
+    }, [bookmarkList])
+
 
     return (
         <div className="column middle">
             <h2>Test bookmark</h2>
 
-            {bookmarkList.map((bookmark) => (
-                //getRecipe(bookmark.recipeId)
-                <div>
-                <h5>{getRecipe(bookmark.recipeId)}
-                    {bookmark.recipeId}</h5>
-                <h5>{bookmark.userName}</h5>
-                </div>
-            ))
-            }
+            {/*{bookmarkList.map((bookmark) => (*/}
+            {/*    //getRecipe(bookmark.recipeId)*/}
+            {/*    <div>*/}
+            {/*    <h5>{getRecipe(bookmark.recipeId)}*/}
+            {/*        {bookmark.recipeId}</h5>*/}
+            {/*    <h5>{bookmark.userName}</h5>*/}
+            {/*    </div>*/}
+            {/*))*/}
+            {/*}*/}
             {/*<div className="container">*/}
             {/*    {bookmarkList.map((bookmark) => (*/}
             {/*        getRecipe(bookmark.recipeId)))*/}
