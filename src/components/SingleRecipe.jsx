@@ -175,6 +175,7 @@ function SingleRecipe({singleRecipe}) {
                         {/*value={mDate.year+"-"+mDate.month+"-"+mDate.day}*/}
                         <label htmlFor="mealTypeSelect">Choose a meal type:</label>
                         <select name="mealTypeSelect" id="mealTypeSelect" onChange={onTypeChange}>
+                                <option value=""></option>
                                 <option value="BREAKFAST">Breakfast</option>
                                 <option value="LUNCH">Lunch</option>
                                 <option value="DINNER">Dinner</option>
