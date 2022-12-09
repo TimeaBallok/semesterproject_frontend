@@ -87,6 +87,13 @@ function SingleRecipe({singleRecipe}) {
         [mplanJson]
     )
 
+    useEffect(() => {
+        apiFacade.postData("bookmark/", (data) => {
+            console.log("Bookmark to recipeId: " + data.recipeId + " userName: " + data.userName);
+        }, "Failed to add to bookmark", bookmarkJSON)
+        console.log("Saved in DB")
+    }, [bookmarkJSON])
+
     const addToBookmark = async (e) => {
         const currentUser = apiFacade.getUserName();
         let recipeId = singleRecipe.id;
@@ -110,10 +117,6 @@ function SingleRecipe({singleRecipe}) {
             console.log(bookmarkJSON);
 
             console.log("You can add to bookmark now! :D")
-            apiFacade.postData("bookmark/", (data) => {
-                console.log("Bookmark to recipeId: " + data.recipeId + " userName: " + data.userName);
-            }, "Failed to add to bookmark", bookmarkJSON)
-            console.log("Saved in DB")
         }
     }
 
