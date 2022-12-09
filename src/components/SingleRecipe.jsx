@@ -30,24 +30,6 @@ function SingleRecipe({singleRecipe}) {
     const [mType, setMType] = useState("");
     // const [open, setOpen] = React.useState(false);
 
-    useEffect(() => {
-            // if (singleRecipe.analyzedInstructions) {
-            //     const temp = singleRecipe.nutrition;
-            //     console.log("singleRecipe:");
-            //     console.log(temp.nutrients);
-            //     singleRecipe.nutrition.nutrients.map((name, amount, unit, percentOfDailyNeeds) => (
-            //         console.log("name:"),
-            //             console.log(name.name),
-            //             console.log("amount:"),
-            //             console.log(amount)
-            //     ))
-            // }
-            console.log(mplanJson);
-            console.log(mDate.year)
-        },
-        [mplanJson]
-    )
-
 
     const addToMealPlanButton = (e) => {
         e.preventDefault()
@@ -69,8 +51,10 @@ function SingleRecipe({singleRecipe}) {
         await apiFacade.postData("recipe/", (data) => {
             console.log("Recipe with ID:" + data + " was successfully saved to DB or was already");
             if (data === recipeId)
+            {
                 recipeSaved = true;
-            console.log(recipeSaved);
+                console.log(recipeSaved);
+            }
         }, "Failed to save recipe to local DB", singleRecipe)
 
         if (recipeSaved) {
@@ -88,14 +72,20 @@ function SingleRecipe({singleRecipe}) {
                     }
                 }
             })
-            await apiFacade.postData("mealPlan/", (data) => {
-                console.log("MEALPLAN with ID:" + data + " was successfully saved to DB or was already");
-            }, "Failed to save mealplan to local DB", mplanJson)
-
+            // addToMealPlan3();
             console.log(mplanJson);
             console.log("You can add to mealplan now! :D")
         }
     }
+
+    useEffect(() => {
+        if (mplanJson.recipeId != -1)
+            apiFacade.postData("mealPlan/", (data) => {
+                console.log("MEALPLAN with ID:" + data + " was successfully saved to DB or was already");
+            }, "Failed to save mealplan to local DB", mplanJson)
+        },
+        [mplanJson]
+    )
 
     const addToBookmark = async (e) => {
         const currentUser = apiFacade.getUserName();
