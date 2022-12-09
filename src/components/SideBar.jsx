@@ -13,11 +13,11 @@ function SideBar(props) {
                 </div>
                 <br/>
                 <div onClick={props.fetchBookmarks}>
-                    <NavLink to={"/bookmark"} >My bookmarks</NavLink>
+                    <NavLink to={props.loggedIn ? "/bookmark" : "/login"} >My bookmarks</NavLink>
                 </div>
                 <br/>
                 <div>
-                    <NavLink to={"/mealplan"} >My meal plan</NavLink>
+                    <NavLink to={props.loggedIn ? "/mealplan" : "/login"} >My meal plan</NavLink>
                 </div>
                 <br/>
                 <div>

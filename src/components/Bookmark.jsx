@@ -6,6 +6,7 @@ function Bookmark({bookmarkList, fetchSingleRecipe}) {
 
     const [recipe, setRecipe] = useState([])
     const recipeArray = []
+    const [myBool, setMyBool] = useState(false);
 
     // function getRecipe (id) {
     //     apiFacade.fetchData("recipe/" + id, (data) => {
@@ -15,7 +16,9 @@ function Bookmark({bookmarkList, fetchSingleRecipe}) {
     //     }, "")
     // }
 
+
     useEffect(() => {
+        setRecipe([]);
         bookmarkList.map(async (bookmark) => {
             console.log(bookmark.recipeId)
             await apiFacade.fetchData("recipe/" + bookmark.recipeId, (data) => {
@@ -28,12 +31,36 @@ function Bookmark({bookmarkList, fetchSingleRecipe}) {
         console.log(recipe)
     }, [bookmarkList])
 
+    // useEffect( () => {
+    //     console.log(recipe)
+    // }, [myBool])
+
 
     return (
         <div className="column middle">
-            <h2>Test bookmark</h2>
+            <h2>Bookmark</h2>
+            {/*<button onClick={() => setMyBool(!myBool)}>yo work plz</button>*/}
 
-            {/*{bookmarkList.map((bookmark) => (*/}
+            {recipe.map((re, ci) => (
+                <Link to={"/singleRecipe"} key={re.id}>
+
+                    <div onClick={fetchSingleRecipe} id={re.id} className="row">
+                        <div className="col">
+                            <img src={re.image}/>
+                        </div>
+                        <div className="col-6">
+                            <p>{re.title}</p>
+                        </div>
+                        <div className="col">
+                            3 out of 5 stars... kekw
+                        </div>
+                    </div>
+                    <br/>
+                </Link>
+            ))}
+
+
+            {/*{recipe.map((recioe) => (*/}
             {/*    //getRecipe(bookmark.recipeId)*/}
             {/*    <div>*/}
             {/*    <h5>{getRecipe(bookmark.recipeId)}*/}

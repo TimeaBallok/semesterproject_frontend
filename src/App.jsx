@@ -17,6 +17,7 @@ import apiFacade from "./apiFacade.js";
 import RecipeList from "./components/RecipeList.jsx";
 import SingleRecipe from "./components/SingleRecipe.jsx";
 import {Link} from "react-router-dom";
+import AccessDenied from "./components/AccessDenied.jsx";
 
 function App() {
     //usestates her
@@ -35,13 +36,15 @@ function App() {
         }, "")
     }
 
-    const fetchBookmarks = (e) => {
+    const fetchBookmarks = async (e) => {
         const currentUser = apiFacade.getUserName();
-        apiFacade.fetchData("bookmark/" + currentUser, (data) => {
-             // console.log(data);
-            setBookmarkList(data)
-            // console.log(singleRecipe.title);
-        }, "")
+        if (currentUser != "")
+            await apiFacade.fetchData("bookmark/" + currentUser, (data) => {
+                console.log("Greetings from FetchBookmarks:");
+                console.log(data);
+                setBookmarkList(data)
+                // console.log(singleRecipe.title);
+            }, "")
     }
 
 
@@ -49,30 +52,34 @@ function App() {
         <BrowserRouter>
 
             <div className="row">
-                <Navbarcomp loggedIn={loggedIn} />
+                <Navbarcomp loggedIn={loggedIn}/>
                 <SideBar loggedIn={loggedIn} fetchBookmarks={fetchBookmarks}/>
 
-            <Routes>
-                <Route path="/" element={<WelcomePage/>}/>
-                <Route path="search" element={facade.hasUserAccess('user',loggedIn) ? <SearchRecipe dataFromServer={dataFromServer} setDataFromServer={setDataFromServer}/>: (<h4 className='column middle'>Please login before trying to use our service <Link to={"/login"}>Login</Link> </h4>)}>
-                    <Route index element={<RecipeList fetchSingleRecipe={fetchSingleRecipe} dataFromServer={dataFromServer}/>}/>
-                </Route>
-                <Route path="singleRecipe" element={facade.hasUserAccess('user',loggedIn) ? <SingleRecipe singleRecipe={singleRecipe}/>: <h4 className='column middle'>Please login before trying to use our service. <Link to={"/login"}>Login</Link></h4>}/>
-                <Route path="bookmark" element={<Bookmark fetchSingleRecipe={fetchSingleRecipe} setErrorMessage={setErrorMessage} bookmarkList={bookmarkList}/> } />
-                <Route path="mealplan" element={<MealPlan/>}/>
-                <Route path="bmi" element={<BMI/>}/>
-                <Route path="about" element={<SearchRecipe/>}/>
-                <Route path="login" element={<LogIn loggedIn={loggedIn} setLoggedIn={setLoggedIn} setErrorMessage={setErrorMessage}/>}/>
-                <Route path="joke" element={facade.hasUserAccess('user', loggedIn) ? <GetJoke setErrorMessage={setErrorMessage} /> : <h4>Get back to work you lazy dog!</h4>}/>
-                <Route
-                    path="*"
-                    element={
-                        <main style={{padding: "1rem"}}>
-                            <p>There's nothing here!</p>
-                        </main>}/>
-            </Routes>
+                <Routes>
+                    <Route path="/" element={<WelcomePage/>}/>
+                    <Route path="search" element={facade.hasUserAccess('user', loggedIn) ?
+                        <SearchRecipe dataFromServer={dataFromServer} setDataFromServer={setDataFromServer}/> : <AccessDenied/>}>
+                        <Route index element={<RecipeList fetchSingleRecipe={fetchSingleRecipe}
+                                                          dataFromServer={dataFromServer}/>}/>
+                    </Route>
+                    <Route path="singleRecipe" element={facade.hasUserAccess('user', loggedIn) ?
+                        <SingleRecipe singleRecipe={singleRecipe}/> : <AccessDenied/>}/>
+                    <Route path="bookmark"
+                           element={facade.hasUserAccess('user', loggedIn) ? <Bookmark fetchSingleRecipe={fetchSingleRecipe} setErrorMessage={setErrorMessage}
+                                              bookmarkList={bookmarkList}/> : <AccessDenied/> }/>
+                    <Route path="mealplan" element={facade.hasUserAccess('user', loggedIn) ? <MealPlan/> : <AccessDenied/>}/>
+                    <Route path="bmi" element={<BMI/>}/>
+                    <Route path="login" element={<LogIn loggedIn={loggedIn} setLoggedIn={setLoggedIn}
+                                                        setErrorMessage={setErrorMessage}/>}/>
+                    <Route
+                        path="*"
+                        element={
+                            <main style={{padding: "1rem"}}>
+                                <p>There's nothing here!</p>
+                            </main>}/>
+                </Routes>
             </div>
-                <Footer />
+            <Footer/>
 
             {/*<Alert className="mt-4" >Status: {errorMessage}</Alert>*/}
         </BrowserRouter>
