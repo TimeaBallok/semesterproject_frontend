@@ -150,6 +150,18 @@ button:hover {
   color: white;
 }
 
+img {
+  width: 500px;
+}
+
+.imgList1 {
+  width: 300px;
+}
+
+.imgList2 {
+  width: 250px;
+}
+
 /*.button{*/
 /*  float: left;*/
 /*  width: 4%;*/

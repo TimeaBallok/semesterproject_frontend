@@ -8,8 +8,8 @@ function SingleRecipe({singleRecipe}) {
 
     const initBookmarkJSON =
         {
-            "userName": "user",
-            "recipeId": 654812
+            "userName": "",
+            "recipeId":""
         }
 
     const initMealPlanJSON = {
@@ -24,6 +24,7 @@ function SingleRecipe({singleRecipe}) {
     }
 
     const [bookmarkJSON, setBookmarkJSON] = useState(initBookmarkJSON)
+    const [bookmarkAdded, setBookmarkAdded] = useState(false)
     const [mplanJson, setMplanJson] = useState(initMealPlanJSON)
     const [mealplanUI, setMealplanUI] = useState(false);
     const [mDate, setMDate] = useState({"year": new Date().getFullYear(), "month": new Date().getMonth(), "day":new Date().getDay()});
@@ -41,6 +42,12 @@ function SingleRecipe({singleRecipe}) {
         e.preventDefault()
         addToMealPlan2(e)
         setMealplanUI(!mealplanUI);
+    }
+
+    const addToBookmarkButton = (e) => {
+        e.preventDefault()
+        addToBookmark(e)
+        setBookmarkAdded(!bookmarkAdded)
     }
 
     const addToMealPlan2 = async (e) => {
@@ -79,10 +86,10 @@ function SingleRecipe({singleRecipe}) {
     }
 
     useEffect(() => {
-        if (mplanJson.recipeId != -1)
-            apiFacade.postData("mealPlan/", (data) => {
-                console.log("MEALPLAN with ID:" + data + " was successfully saved to DB or was already");
-            }, "Failed to save mealplan to local DB", mplanJson)
+            if (mplanJson.recipeId != -1)
+                apiFacade.postData("mealPlan/", (data) => {
+                    console.log("MEALPLAN with ID:" + data + " was successfully saved to DB or was already");
+                }, "Failed to save mealplan to local DB", mplanJson)
         },
         [mplanJson]
     )
@@ -178,10 +185,10 @@ function SingleRecipe({singleRecipe}) {
                         {/*value={mDate.year+"-"+mDate.month+"-"+mDate.day}*/}
                         <label htmlFor="mealTypeSelect">Choose a meal type:</label>
                         <select name="mealTypeSelect" id="mealTypeSelect" onChange={onTypeChange}>
-                                <option value=""></option>
-                                <option value="BREAKFAST">Breakfast</option>
-                                <option value="LUNCH">Lunch</option>
-                                <option value="DINNER">Dinner</option>
+                            <option value=""></option>
+                            <option value="BREAKFAST">Breakfast</option>
+                            <option value="LUNCH">Lunch</option>
+                            <option value="DINNER">Dinner</option>
                         </select>
 
                         <button onClick={saveToMealPlan}>Save me plz oh lord.... just work damn u</button>
@@ -189,7 +196,10 @@ function SingleRecipe({singleRecipe}) {
             </div>
             <br/>
             <div>
-                <button onClick={addToBookmark}>Add to bookmark</button>
+                {bookmarkAdded ? (
+                        <h5>{singleRecipe.title} added to bookmark</h5>
+                    ) :
+                    <button onClick={addToBookmarkButton}>Add to bookmark</button>}
             </div>
 
         </div>

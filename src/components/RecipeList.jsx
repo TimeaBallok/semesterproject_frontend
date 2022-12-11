@@ -14,7 +14,7 @@ function RecipeList({dataFromServer, fetchSingleRecipe}) {
 
                 <div onClick={fetchSingleRecipe} id={recipe.id} className="row">
                     <div className="col">
-                        <img src={recipe.image}/>
+                        <img className="imgList1" src={recipe.image}/>
                     </div>
                     <div className="col-6">
                         <p>{recipe.title}</p>
