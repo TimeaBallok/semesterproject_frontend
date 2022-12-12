@@ -129,7 +129,8 @@ function SingleRecipe({singleRecipe}) {
 
     const onDateChange = (e) => {
         console.log(e.target.value)
-        setMDate({"year": new Date(e.target.value).getFullYear(), "month": new Date(e.target.value).getMonth(), "day":new Date(e.target.value).getDay()})
+        const dateArr = e.target.value.split("-");
+        setMDate({"year": dateArr[0], "month": dateArr[1], "day":dateArr[2]})
         console.log(mDate);
     }
 

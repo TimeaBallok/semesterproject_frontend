@@ -16,8 +16,8 @@ function SideBar(props) {
                     <NavLink to={props.loggedIn ? "/bookmark" : "/login"} >My bookmarks</NavLink>
                 </div>
                 <br/>
-                <div>
-                    <NavLink to={props.loggedIn ? "/mealplan" : "/login"} >My meal plan</NavLink>
+                <div onClick={props.fetchMealplansDatesByUsername}>
+                    <NavLink to={props.loggedIn ? "/mealplans" : "/login"} >My meal plan</NavLink>
                 </div>
                 <br/>
                 <div>
