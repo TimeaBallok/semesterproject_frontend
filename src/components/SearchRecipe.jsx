@@ -58,10 +58,8 @@ function SearchRecipe({dataFromServer, setDataFromServer}) {
             <div className='column middle'>
                 <div className='searchbar'>
                     <p>Search for recipes</p>
-                    <input className={"inputLogin"} type="search" name="search" placeholder="Search recipes..." onChange={changeHandler}></input>
-                </div>
-                <div className='button'>
-                    <button type="button" onClick={basicComplexSearchClick}><i className="fa fa-search"></i></button>
+                    <input className="inputSearch" type="search" name="search" placeholder="Search recipes..." onChange={changeHandler}></input>
+                    <button type="button" onClick={basicComplexSearchClick}><i className="fa fa-search" style={{}}></i></button>
                 </div>
                 < FilterBoxes filters={filters}/>
                 <Outlet context={dataFromServer}/>

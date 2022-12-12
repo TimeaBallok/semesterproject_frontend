@@ -11,7 +11,7 @@ body {
   background-color: rgb(34, 139, 34, 0.9);
   padding: 30px;
   text-align: left;
-  font-size: 30px;
+  font-size: 50px;
 }
 
 /* Create three unequal columns that floats next to each other */
@@ -78,12 +78,12 @@ nav a:hover,
   font-size: 16px;
   background-color: white;
   background-image: url('public/searchicon.png');
-  background-position: 10px 10px; 
+  background-position: 10px 10px;
   background-repeat: no-repeat;
   padding: 12px 20px 12px 40px;
   -webkit-transition: width 0.4s ease-in-out;
   transition: width 0.4s ease-in-out;
-  float: left;
+  float: right;
 }
 
 form {
@@ -95,6 +95,7 @@ label {
   display: block;
   font-weight: 500;
   margin-bottom: 1.5em;
+  font-size: 17px;
 }
 
 .inputLogin {
@@ -102,14 +103,55 @@ label {
   font-size: 1em;
   margin-top: 0.35em;
   display: block;
-  width: 60%;
   padding: 0.5em;
   border: 1px solid rgb(34, 139, 34, 1);
   border-radius: 3px;
   width: 450px;
 }
 
+.inputSearch {
+  outline: none;
+  font-size: 1em;
+  margin-top: 0.35em;
+  display: block;
+  padding: 0.5em;
+  border: 1px solid rgb(34, 139, 34, 1);
+  border-radius: 3px;
+  width: 450px;
+  float: left;
+}
+
+.inputFilterBoxes {
+  outline: none;
+  margin-top: 0.35em;
+  display: block;
+  width: 150px;
+  float: left;
+}
+
+.inputMinMax {
+  outline: none;
+  font-size: 1em;
+  display: block;
+  border: 1px solid rgb(34, 139, 34, 1);
+  border-radius: 3px;
+  float: left;
+  margin-right: 2px;
+  text-align: center;
+}
+
+input[type="checkbox"] {
+  width: 25px;
+  height: 20px;
+}
+
+
 input[type=text]:focus {
+  border: 1px solid rgb(34, 139, 34, 1);
+  border-radius: 4px;
+}
+
+input[type=number]:focus {
   border: 1px solid rgb(34, 139, 34, 1);
   border-radius: 4px;
 }

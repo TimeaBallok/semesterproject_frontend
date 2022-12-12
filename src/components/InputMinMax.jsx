@@ -16,11 +16,11 @@ function InputMinMax({typeName, onChangeValue}) {
 
     return (
         <div>
-            <input type="number" placeholder={"min"} name={"min"+typeName} id={"min"+typeName} min={0} onChange={e=> {
+            <input className="inputMinMax" type="number" placeholder={"min"} name={"min"+typeName} id={"min"+typeName} min={0} onChange={e=> {
                 onChangeValue(e)
                 limit(e);
             }}/>
-            <input type="number" placeholder={"max"} name={"max"+typeName} id={"max"+typeName} onChange={onChangeValue} ref={refInputMax}/>
+            <input className="inputMinMax" type="number" placeholder={"max"} name={"max"+typeName} id={"max"+typeName} onChange={onChangeValue} ref={refInputMax}/>
         </div>
     );
 }
