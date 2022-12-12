@@ -2,7 +2,6 @@ import React, {useEffect, useRef, useState} from 'react';
 import {forEach} from "react-bootstrap/ElementChildren";
 import facade from "../apiFacade.js";
 import apiFacade from "../apiFacade.js";
-import MealPlanModal from "./MealPlanModal.jsx";
 
 function SingleRecipe({singleRecipe}) {
 
