@@ -11,7 +11,7 @@ import Footer from "./components/Footer.jsx";
 import SideBar from "./components/SideBar.jsx";
 import SearchRecipe from "./components/SearchRecipe.jsx";
 import Bookmark from "./components/Bookmark.jsx";
-import MealPlan from "./components/MealPlan.jsx";
+import SingleMealPlan from "./components/SingleMealPlan.jsx";
 import BMI from "./components/BMI.jsx";
 import apiFacade from "./apiFacade.js";
 import RecipeList from "./components/RecipeList.jsx";
@@ -65,6 +65,7 @@ function App() {
     }
 
     const fetchMealplansByDate = async (e) => {
+        setMealplanList([{}]);
         const currentUser = apiFacade.getUserName();
         // console.log(e.target.innerHTML)
         const subMe= e.target.innerHTML;
@@ -109,7 +110,7 @@ function App() {
                            element={facade.hasUserAccess('user', loggedIn) ? <Bookmark fetchSingleRecipe={fetchSingleRecipe} setErrorMessage={setErrorMessage}
                                                                                        bookmarkedRecipeList={bookmarkedRecipeList}/> : <AccessDenied/> }/>
                     <Route path="mealplans" element={facade.hasUserAccess('user', loggedIn) ? <MealPlans mealplanDatesList={mealplanDatesList} fetchMealplansByDate={fetchMealplansByDate}/> : <AccessDenied/>}/>
-                    <Route path="mealplan" element={facade.hasUserAccess('user', loggedIn) ? <MealPlan mealplanList={mealplanList} fetchSingleRecipe={fetchSingleRecipe}/> : <AccessDenied/>}/>
+                    <Route path="singleMealplan" element={facade.hasUserAccess('user', loggedIn) ? <SingleMealPlan mealplanList={mealplanList} fetchSingleRecipe={fetchSingleRecipe}/> : <AccessDenied/>}/>
                     <Route path="bmi" element={<BMI/>}/>
                     <Route path="login" element={<LogIn loggedIn={loggedIn} setLoggedIn={setLoggedIn}
                                                         setErrorMessage={setErrorMessage}/>}/>

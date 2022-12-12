@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import apiFacade from "../apiFacade.js";
 import {Link} from "react-router-dom";
 
-function MealPlan({mealplanList, fetchSingleRecipe}) {
+function SingleMealPlan({mealplanList, fetchSingleRecipe}) {
 
 
 
@@ -22,7 +22,7 @@ function MealPlan({mealplanList, fetchSingleRecipe}) {
 
     return (
         <div className="column middle">
-            <h2>Mealplan</h2>
+            <h2>Single Mealplan</h2>
             {/*<button onClick={() => setMyBool(!myBool)}>yo work plz</button>*/}
 
             {mealplanList.map((re, ci) => (
@@ -46,4 +46,4 @@ function MealPlan({mealplanList, fetchSingleRecipe}) {
     );
 }
 
-export default MealPlan;
+export default SingleMealPlan;

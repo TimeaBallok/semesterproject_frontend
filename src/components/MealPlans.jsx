@@ -14,7 +14,7 @@ function MealPlans({mealplanDatesList, fetchMealplansByDate}) {
         <div className="column middle">
             <h2>Mealpans</h2>
             {mealplanDatesList.map((mealPlan, ci) => (
-                <Link to={"/MealPlan"} key={ci}>
+                <Link to={"/SingleMealplan"} key={ci}>
 
                 <div id={ci} className="row">
                     <div className="col">
