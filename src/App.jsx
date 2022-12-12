@@ -39,7 +39,7 @@ function App() {
     const fetchBookmarkedRecipeList = async (e) => {
         const currentUser = apiFacade.getUserName();
         if (currentUser != "")
-            await apiFacade.fetchData("recipe/user/" + currentUser, (data) => {
+            await apiFacade.fetchData("recipe/bookmark/" + currentUser, (data) => {
                 console.log("Greetings from FetchBookmarks:");
                 console.log(data);
                 setBookmarkedRecipeList(data)
