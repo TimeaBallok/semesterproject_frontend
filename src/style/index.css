@@ -40,6 +40,11 @@ body {
   clear: both;
 }
 
+.row {
+  margin-left: 0px!important;
+  margin-right: 0px!important;
+}
+
 nav a {
   display: block;
   font-size: 1.25rem;
@@ -112,12 +117,12 @@ label {
 .inputSearch {
   outline: none;
   font-size: 1em;
-  margin-top: 0.35em;
   display: block;
   padding: 0.5em;
   border: 1px solid rgb(34, 139, 34, 1);
   border-radius: 3px;
   width: 450px;
+  height: 50px;
   float: left;
 }
 
@@ -204,6 +209,27 @@ img {
   width: 250px;
 }
 
+.filterBox {
+ padding-top: 90px;
+}
+
+.card {
+  border: 1px solid black !important;
+  border-radius: 4px;
+  background-color: rgb(34, 139, 34, 0.01)!important;
+  font-size: 18px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.card2 {
+  border: 1px solid black !important;
+  border-radius: 4px;
+  background-color: rgb(34, 139, 34, 0.01)!important;
+  font-size: 18px;
+  padding-top: 8px;
+  padding-left: 10px;
+}
 
 /*.button{*/
 /*  float: left;*/

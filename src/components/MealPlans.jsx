@@ -13,7 +13,9 @@ function MealPlans({mealplanDatesList, fetchMealplansByDate}) {
     return (
         <div className="column middle">
             <h2>Mealpans</h2>
+            <br/>
             {mealplanDatesList.map((mealPlan, ci) => (
+
                 <Link to={"/SingleMealplan"} key={ci}>
 
                 <div id={ci} className="row">

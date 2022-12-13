@@ -10,21 +10,25 @@ function RecipeList({dataFromServer, fetchSingleRecipe}) {
 
         <div className="container">
             {dataFromServer.results.map((recipe) => (
-                <Link to={"/singleRecipe"} key={recipe.id}>
+                <>
+                <div className="card">
+                    <Link to={"/singleRecipe"} key={recipe.id}>
 
-                <div onClick={fetchSingleRecipe} id={recipe.id} className="row">
-                    <div className="col">
-                        <img className="imgList1" src={recipe.image}/>
-                    </div>
-                    <div className="col-6">
-                        <p>{recipe.title}</p>
-                    </div>
-                    <div className="col">
-                        3 out of 5 stars... kekw
-                    </div>
+                        <div onClick={fetchSingleRecipe} id={recipe.id} className="row">
+                            <div className="col">
+                                <img className="imgList1" src={recipe.image}/>
+                            </div>
+                            <div className="col-6">
+                                <p>{recipe.title}</p>
+                            </div>
+                            <div className="col">
+                                ⭐⭐⭐
+                            </div>
+                        </div>
+                    </Link>
                 </div>
                     <br/>
-                </Link>
+                </>
 
 
             ))}

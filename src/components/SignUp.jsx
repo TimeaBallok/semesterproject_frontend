@@ -6,6 +6,7 @@ function SignUp(props) {
 
     const [userName, setUserName] = useState('');
     const [userPass, setUserPass] = useState('');
+    const [signedUp, setSignedUp] = useState(false)
 
     const handleUserName = (e) => {
         setUserName(e.target.value);
@@ -18,6 +19,7 @@ function SignUp(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
         facade.createUser(userName, userPass)
+        setSignedUp(!signedUp)
         console.log("You are signed up now")
     };
 
@@ -35,6 +37,12 @@ function SignUp(props) {
                 <br/><br/>
                 <button onClick={handleSubmit} type="submit">Sign Up</button>
             </form>
+            <div>
+                {signedUp ? (
+                        <h5>You are signed up now</h5>
+                    ) : ""}
+
+            </div>
         </div>
     );
 }

@@ -30,7 +30,7 @@ function FilterBoxes({filters}) {
     return (
         <div>
             <br/>
-            <div >
+            <div>
                 {Array.from(filters).map(([typeName, values], index) => (
                         <div className="inputFilterBoxes" key={typeName}>
                             <label htmlFor={"filter"+typeName}>{typeName}</label>

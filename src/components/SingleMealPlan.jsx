@@ -24,25 +24,29 @@ function SingleMealPlan({mealplanList, fetchSingleRecipe}) {
     return (
         <div className="column middle">
             <h2>Single Mealplan</h2>
+            <br/>
             {/*<button onClick={() => setMyBool(!myBool)}>yo work plz</button>*/}
 
             {toggle ? mealplanList.map((element, ci) => (
                 <>
-                    <h3>{element.type}</h3>
+                    <div className="card2">
+                    <h4>{element.type}</h4>
                     <Link to={"/singleRecipe"} key={ci}>
                         <div onClick={fetchSingleRecipe} id={element.recipeJson.id} className="row">
                             <div className="col">
-                                <img src={element.recipeJson.image}/>
+                                <img className="imgList2" src={element.recipeJson.image}/>
                             </div>
                             <div className="col-6">
                                 <p>{element.recipeJson.title}</p>
                             </div>
                             <div className="col">
-                                3 out of 5 stars... kekw
+                                ⭐⭐⭐ kekw
                             </div>
                         </div>
                         <br/>
                     </Link>
+                    </div>
+                    <br/>
                 </>
             )) : ""}
         </div>

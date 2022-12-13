@@ -61,8 +61,13 @@ function SearchRecipe({dataFromServer, setDataFromServer}) {
                     <input className="inputSearch" type="search" name="search" placeholder="Search recipes..." onChange={changeHandler}></input>
                     <button type="button" onClick={basicComplexSearchClick}><i className="fa fa-search" style={{}}></i></button>
                 </div>
+                <div >
                 < FilterBoxes filters={filters}/>
+                </div>
+                <br/><br/>
+                <div className="filterBox">
                 <Outlet context={dataFromServer}/>
+                </div>
             </div>
         {/*    Her er vores recipes    */}
         </>
