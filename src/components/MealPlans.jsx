@@ -19,7 +19,9 @@ function MealPlans({mealplanDatesList, fetchMealplansByDate}) {
                 <Link to={"/SingleMealplan"} key={ci}>
 
                 <div id={ci} className="row">
+
                     <div className="col">
+                        <p className="calender">📅</p>
                         <p onClick={fetchMealplansByDate} >{mealPlan.year}-{mealPlan.month}-{mealPlan.day}</p>
                     </div>
                     <br/>

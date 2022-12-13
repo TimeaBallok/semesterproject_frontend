@@ -180,7 +180,7 @@ function SingleRecipe({singleRecipe}) {
                     <>
                         <label htmlFor="start">Date:</label>
 
-                        <input type="date" id="start" name="trip-start"
+                        <input style={{borderRadius: "5px"}} type="date" id="start" name="trip-start"
                                min={new Date().toISOString().split("T")[0]} max="2025-12-31" onChange={onDateChange}/>
                         {/*value={mDate.year+"-"+mDate.month+"-"+mDate.day}*/}
                         <label htmlFor="mealTypeSelect">Choose a meal type:</label>
@@ -191,7 +191,7 @@ function SingleRecipe({singleRecipe}) {
                             <option value="DINNER">Dinner</option>
                         </select>
 
-                        <button onClick={saveToMealPlan}>Save me plz oh lord.... just work damn u</button>
+                        <button onClick={saveToMealPlan}>🍴 📅</button>
                     </>) : <button onClick={addToMealPlanButton}>Add to mealplan</button>}
             </div>
             <br/>
