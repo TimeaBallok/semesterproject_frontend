@@ -19,6 +19,7 @@ import SingleRecipe from "./components/SingleRecipe.jsx";
 import {Link} from "react-router-dom";
 import AccessDenied from "./components/AccessDenied.jsx";
 import MealPlans from "./components/MealPlans.jsx";
+import SignUp from "./components/SignUp.jsx";
 
 function App() {
     //usestates her
@@ -104,6 +105,7 @@ function App() {
                         <Route index element={<RecipeList fetchSingleRecipe={fetchSingleRecipe}
                                                           dataFromServer={dataFromServer}/>}/>
                     </Route>
+
                     <Route path="singleRecipe" element={facade.hasUserAccess('user', loggedIn) ?
                         <SingleRecipe singleRecipe={singleRecipe}/> : <AccessDenied/>}/>
                     <Route path="bookmark"
@@ -112,6 +114,7 @@ function App() {
                     <Route path="mealplans" element={facade.hasUserAccess('user', loggedIn) ? <MealPlans mealplanDatesList={mealplanDatesList} fetchMealplansByDate={fetchMealplansByDate}/> : <AccessDenied/>}/>
                     <Route path="singleMealplan" element={facade.hasUserAccess('user', loggedIn) ? <SingleMealPlan mealplanList={mealplanList} fetchSingleRecipe={fetchSingleRecipe}/> : <AccessDenied/>}/>
                     <Route path="bmi" element={<BMI/>}/>
+                    <Route path="/signUp" element={<SignUp/>}/>
                     <Route path="login" element={<LogIn loggedIn={loggedIn} setLoggedIn={setLoggedIn}
                                                         setErrorMessage={setErrorMessage}/>}/>
                     <Route

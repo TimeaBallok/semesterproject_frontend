@@ -47,6 +47,14 @@ function apiFacade() {
             });
     }
 
+    const createUser = (userName, userPass) =>
+    {
+        const options = makeOptions("POST", true, {userName: userName, userPass: userPass})
+        return fetch(URL + "/api/info", options)
+            .then(handleHttpErrors)
+            .catch(() => { console.log('promis rejected'); })
+    }
+
     const fetchData = (endpoint, updateAction, SetErrorMessage) =>
     {
         const options = makeOptions("GET", true); //True add's the token
@@ -139,6 +147,7 @@ function apiFacade() {
         loggedIn,
         login,
         logout,
+        createUser,
         fetchData,
         postData,
         hasUserAccess,

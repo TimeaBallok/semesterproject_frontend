@@ -3,6 +3,7 @@ import facade from "../apiFacade.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import UserPage from "./UserPage.jsx";
 import LoginForm from "./LoginForm.jsx";
+import {useNavigate} from "react-router-dom";
 
 function LogIn({loggedIn, setLoggedIn, setErrorMessage}) {
     // const [loggedIn, setLoggedIn] = useState(false)
@@ -17,6 +18,12 @@ function LogIn({loggedIn, setLoggedIn, setErrorMessage}) {
     const login = (user, pass) => {facade.login(user,pass, setLoggedIn, setErrorMessage)
     }
 
+    const navigate = useNavigate();
+
+    const signUp = () => {
+        navigate("/signUp")
+    }
+
     return (
         <div className="column middle" style={{paddingLeft: 40}}>
             {!loggedIn ? (<LoginForm login={login} loginCredentials={loginCredentials} setLoginCredentials={setLoginCredentials}/>) :
@@ -24,6 +31,10 @@ function LogIn({loggedIn, setLoggedIn, setErrorMessage}) {
                     <UserPage />
                     <button onClick={logout}>Logout</button>
                 </div>)}
+            <div className="signUp">
+                <h5>Not a user?</h5>
+                <button onClick={signUp}>Sign up her!</button>
+            </div>
         </div>
     )
 
