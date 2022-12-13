@@ -26,19 +26,23 @@ function Bmi(props) {
     return (
         <div className="column middle">
             <h1>BMI Calculator</h1>
-            <input
+            <br/>
+            <input className="inputLogin"
                 type="text"
                 onChange={(e) => setHeight(e.target.value)}
-                placeholder="height in cm"
+                placeholder="Height in cm"
             />
-            <input
+            <input className="inputLogin"
                 type="text"
                 onChange={(e) => setWeight(e.target.value)}
                 placeholder="Weight in kg"
             />
+            <br/>
             <button onClick={handleBmi}>Calculate</button>
-            <h1>{bmi}</h1>
-            <h2>{info}</h2>
+            <br/><br/>
+            <div>
+            <h3>Your BMI: {bmi} - {info}</h3>
+            </div>
         </div>
     );
 }
