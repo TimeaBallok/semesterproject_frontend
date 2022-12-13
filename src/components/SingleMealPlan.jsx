@@ -4,8 +4,7 @@ import {Link} from "react-router-dom";
 
 function SingleMealPlan({mealplanList, fetchSingleRecipe}) {
 
-
-
+    const [toggle, setToggle] = useState(false)
 
     useEffect(() => {
         const currentUser = apiFacade.getUserName();
@@ -13,11 +12,13 @@ function SingleMealPlan({mealplanList, fetchSingleRecipe}) {
         console.log(mealplanList);
         mealplanList.map(async (mealplan, mi) => {
             console.log("mapindex:" + mi);
-            console.log(mealplan)
+            console.log(mealplan.type)
+            console.log(mealplan.recipeJson)
+            if (mealplan.recipeJson.id != "") setToggle(true)
+            else setToggle(false)
+            console.log(toggle)
         })
     }, [mealplanList])
-
-
 
 
     return (
@@ -25,23 +26,25 @@ function SingleMealPlan({mealplanList, fetchSingleRecipe}) {
             <h2>Single Mealplan</h2>
             {/*<button onClick={() => setMyBool(!myBool)}>yo work plz</button>*/}
 
-            {mealplanList.map((re, ci) => (
-                <Link to={"/singleRecipe"} key={re.id}>
-
-                    <div onClick={fetchSingleRecipe} id={re.id} className="row">
-                        <div className="col">
-                            <img src={re.image}/>
+            {toggle ? mealplanList.map((element, ci) => (
+                <>
+                    <h3>{element.type}</h3>
+                    <Link to={"/singleRecipe"} key={ci}>
+                        <div onClick={fetchSingleRecipe} id={element.recipeJson.id} className="row">
+                            <div className="col">
+                                <img src={element.recipeJson.image}/>
+                            </div>
+                            <div className="col-6">
+                                <p>{element.recipeJson.title}</p>
+                            </div>
+                            <div className="col">
+                                3 out of 5 stars... kekw
+                            </div>
                         </div>
-                        <div className="col-6">
-                            <p>{re.title}</p>
-                        </div>
-                        <div className="col">
-                            3 out of 5 stars... kekw
-                        </div>
-                    </div>
-                    <br/>
-                </Link>
-            ))}
+                        <br/>
+                    </Link>
+                </>
+            )) : ""}
         </div>
     );
 }
