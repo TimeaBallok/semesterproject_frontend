@@ -74,7 +74,24 @@ function apiFacade() {
 
     const postData = (endpoint, updateAction, SetErrorMessage, jsonBody) =>
     {
-        const options = makeOptions("POST", true, jsonBody); //True add's the token
+        const options = makeOptions("POST", true, jsonBody); //True adds the token
+        return fetch(URL + "/api/" + endpoint, options)
+            .then(handleHttpErrors)
+            .then((data) => updateAction(data))
+            .catch(err =>
+            {
+                if (err.status)
+                {
+                    console.log(err)
+                    err.fullError.then(e => SetErrorMessage(e.code + ": " + e.message))
+                }
+                else { SetErrorMessage("Network error"); }
+            })
+    }
+
+    const deleteData = (endpoint, updateAction, SetErrorMessage) =>
+    {
+        const options = makeOptions("DELETE", true); //True adds the token
         return fetch(URL + "/api/" + endpoint, options)
             .then(handleHttpErrors)
             .then((data) => updateAction(data))
@@ -150,6 +167,7 @@ function apiFacade() {
         createUser,
         fetchData,
         postData,
+        deleteData,
         hasUserAccess,
         getUserRoles,
         getUserName

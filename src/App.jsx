@@ -22,7 +22,7 @@ import MealPlans from "./components/MealPlans.jsx";
 import SignUp from "./components/SignUp.jsx";
 
 function App() {
-    //usestates her
+    //useStates her
     const [loggedIn, setLoggedIn] = useState(false)
     const [errorMessage, setErrorMessage] = useState('It just works! ~Todd Howard');
     const [dataFromServer, setDataFromServer] = useState({"results": []})
@@ -42,7 +42,7 @@ function App() {
 
     const fetchBookmarkedRecipeList = async (e) => {
         const currentUser = apiFacade.getUserName();
-        if (currentUser != "")
+        if (currentUser !== "")
             await apiFacade.fetchData("recipe/bookmark/" + currentUser, (data) => {
                 console.log("Greetings from FetchBookmarks:");
                 console.log(data);
@@ -55,7 +55,7 @@ function App() {
 
     const fetchMealplansDatesByUsername = async (e) => {
         const currentUser = apiFacade.getUserName();
-        if (currentUser != "")
+        if (currentUser !== "")
             await apiFacade.fetchData("mealPlan/" + currentUser, (data) => {
                 console.log("Greetings from fetchMealplansDates:");
                 // console.log(data);
@@ -78,7 +78,7 @@ function App() {
         };
         console.log(date);
         // const date = e.target.id;
-        if (currentUser != "") {
+        if (currentUser !== "") {
             await apiFacade.postData("mealPlan/" + currentUser + "/recipes", (data) => {
                 console.log("Greetings from fetchMealplansByDate:");
                 // console.log(data);
@@ -109,7 +109,7 @@ function App() {
                     <Route path="singleRecipe" element={facade.hasUserAccess('user', loggedIn) ?
                         <SingleRecipe singleRecipe={singleRecipe}/> : <AccessDenied/>}/>
                     <Route path="bookmark"
-                           element={facade.hasUserAccess('user', loggedIn) ? <Bookmark fetchSingleRecipe={fetchSingleRecipe} setErrorMessage={setErrorMessage}
+                           element={facade.hasUserAccess('user', loggedIn) ? <Bookmark setBookmarkedRecipeList={setBookmarkedRecipeList} fetchSingleRecipe={fetchSingleRecipe} setErrorMessage={setErrorMessage}
                                                                                        bookmarkedRecipeList={bookmarkedRecipeList}/> : <AccessDenied/> }/>
                     <Route path="mealplans" element={facade.hasUserAccess('user', loggedIn) ? <MealPlans mealplanDatesList={mealplanDatesList} fetchMealplansByDate={fetchMealplansByDate}/> : <AccessDenied/>}/>
                     <Route path="singleMealplan" element={facade.hasUserAccess('user', loggedIn) ? <SingleMealPlan mealplanList={mealplanList} fetchSingleRecipe={fetchSingleRecipe}/> : <AccessDenied/>}/>
