@@ -2,14 +2,15 @@ import React, {useEffect, useState} from 'react';
 import facade from "../apiFacade.js";
 import {Link, useOutletContext} from "react-router-dom";
 import apiFacade from "../apiFacade.js";
+import {Alert} from "react-bootstrap";
 
-function RecipeList({dataFromServer, fetchSingleRecipe}) {
+function RecipeList({dataFromServer, fetchSingleRecipe, errorMessage}) {
 
 
     return (
 
         <div className="container">
-            {dataFromServer.results.map((recipe) => (
+            {dataFromServer.results.length > 0 || errorMessage === "Logged in" ? dataFromServer.results.map((recipe) => (
                 <>
                 <div className="card">
                     <Link to={"/singleRecipe"} key={recipe.id}>
@@ -31,7 +32,8 @@ function RecipeList({dataFromServer, fetchSingleRecipe}) {
                 </>
 
 
-            ))}
+            )) : <Alert key={"secondary"} variant={"secondary"} className="mt-4" >{errorMessage}</Alert>}
+
         </div>
 
     );

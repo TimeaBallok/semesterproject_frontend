@@ -12,15 +12,7 @@ const filters = new Map([
 ]);
 //endregion
 
-function SearchRecipe({dataFromServer, setDataFromServer}) {
-
-    // const filters = new Map([
-    //     [ "Calories", false ],
-    //     [ "Sugar", false ],
-    //     ["Cholesterol", false],
-    //     ["Fat", false]
-    // ]);
-
+function SearchRecipe({dataFromServer, setDataFromServer, setErrorMessage}) {
 
     const [searchInput, setSearchInput] = useState([{}])
 
@@ -29,6 +21,7 @@ function SearchRecipe({dataFromServer, setDataFromServer}) {
         //arr.map(function(val, index){
         //             return {key:index, value:val*val};
         //         })
+        setDataFromServer({"results": []});
         const selectedFilters = Array.from(filters).map(([key, values], index) => {
             if (values.boxValue)
                 return "&min"+key+"="+values.min+"&max"+key+"="+values.max;
@@ -38,7 +31,7 @@ function SearchRecipe({dataFromServer, setDataFromServer}) {
             // console.log(data);
             setDataFromServer(data)
             // console.log(data.results[0]);
-        }, "")
+        }, setErrorMessage)
         // console.log(filters)
         // apiFacade.fetchData("recipe/search/" + searchInput+selectedFilters, (data) => {
         //     console.log(data);
