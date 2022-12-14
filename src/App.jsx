@@ -101,9 +101,9 @@ function App() {
                 <Routes>
                     <Route path="/" element={<WelcomePage/>}/>
                     <Route path="search" element={facade.hasUserAccess('user', loggedIn) ?
-                        <SearchRecipe dataFromServer={dataFromServer} setDataFromServer={setDataFromServer}/> : <AccessDenied/>}>
+                        <SearchRecipe dataFromServer={dataFromServer} setDataFromServer={setDataFromServer} setErrorMessage={setErrorMessage}/> : <AccessDenied/>}>
                         <Route index element={<RecipeList fetchSingleRecipe={fetchSingleRecipe}
-                                                          dataFromServer={dataFromServer}/>}/>
+                                                          dataFromServer={dataFromServer} errorMessage={errorMessage}/>}/>
                     </Route>
 
                     <Route path="singleRecipe" element={facade.hasUserAccess('user', loggedIn) ?
