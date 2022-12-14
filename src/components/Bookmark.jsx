@@ -49,7 +49,7 @@ function Bookmark({bookmarkedRecipeList, setBookmarkedRecipeList, fetchSingleRec
                             </div>
                         </Link>
                         <div className="column">
-                            <button onClick={deleteBookmark} value={re.id}>BEGONE</button>
+                            <button onClick={deleteBookmark} value={re.id}>Delete</button>
                         </div>
                     </div>
                     <br/>
