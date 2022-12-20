@@ -13,7 +13,7 @@ const WelcomePage = () => {
           <h5>You can search recipes and filter them. You can see diet and all nutrients on a single recipe.</h5>
           <h5>You can bookmark your favorite recipes and you can add them to your meal plan as well.</h5>
           <br/><br/>
-          <h5>Furthermore you can calculate your BMI</h5>
+          <h5>Furthermore you can calculate your BMI.</h5>
           <br/><br/><br/>
       </div>
 
