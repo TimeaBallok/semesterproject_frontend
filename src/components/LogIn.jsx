@@ -34,7 +34,7 @@ function LogIn({loggedIn, setLoggedIn, setErrorMessage}) {
             {loggedIn ? "" :
                 (<div className="signUp">
                 <h5>Not a user?</h5>
-                <button onClick={signUp}>Sign up her!</button>
+                <button onClick={signUp}>Sign up here!</button>
             </div>)}
         </div>
     )
