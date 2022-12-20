@@ -162,13 +162,13 @@ function SingleRecipe({singleRecipe}) {
                 </>
             )) : ""}
             <br/>
-            <h4>Ungh-gradients</h4>
+            <h4>Ingredients</h4>
             <ul>
                 {singleRecipe.extendedIngredients ? (singleRecipe.extendedIngredients.map(ing =>
                     <li key={ing.nameClean}>{ing.nameClean}: {ing.amount} {ing.unit}</li>
                 )) : ""}
             </ul>
-            <h4>Nutriooons:</h4>
+            <h4>Nutrients:</h4>
             <i>per serving</i>
             <ul>
                 {singleRecipe.nutrition ? singleRecipe.nutrition.nutrients.map((nutrient) => (

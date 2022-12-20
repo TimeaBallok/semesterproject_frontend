@@ -22,7 +22,7 @@ function Bookmark({bookmarkedRecipeList, setBookmarkedRecipeList, fetchSingleRec
     }, [toggle])
 
     const deleteBookmark = async (e) => {
-        await apiFacade.deleteData("recipe/bookmark/" + currentUser + "/" + e.target.value, () => console.log("see ya later"), () => {
+        await apiFacade.deleteData("recipe/bookmark/" + currentUser + "/" + e.target.value, () => console.log("book was deleted"), () => {
         })
         setToggle(!toggle)
     }
